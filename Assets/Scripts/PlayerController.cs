@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPhysics
 {
 
     [SerializeField] private float acceleration;
     [SerializeField] private float limits;
     [SerializeField] private GameObject ball;
     [SerializeField] private float ballImpulse;
-
     [SerializeField] private float startTime;
+    
     private float currentTime;
     
     private Physics physics;
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         physics = this.gameObject.GetComponent<Physics>();
         countDownCoroutine = StartCoroutine(StartCountdown());
     }
-
+    
     void Update()
     {
         if (GameManager.Instance.ballOnBoard && Input.GetKeyDown(KeyCode.Space))
@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
         
         Movement();
     }
-
-    public void CheckBorder()
+    
+    private void CheckBorder()
     {
         if (transform.position.x < -limits)
         {
@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(limits, transform.position.y, transform.position.z);
         }
     }
-
-    void Movement()
+    
+    private void Movement()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
@@ -65,14 +65,12 @@ public class PlayerController : MonoBehaviour
         }
         physics.ApplyFriction(); 
     }
-
-
-    void ShootBall()
+    
+    private void ShootBall()
     {
         ballPhysics.ApplyImpulse(new Vector3(0,1,0) * ballImpulse);
         GameManager.Instance.ballOnBoard = false;
     }
-
     
     private IEnumerator StartCountdown()
     {
@@ -82,15 +80,10 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(1f); // Espera 1 segundo
             currentTime--;
         }
+        Unparent(ball);
         ShootBall();
     }
-
     
-    private void Parent(GameObject ballGameObject, GameObject boardGameObject)
-    {
-        ballGameObject.transform.SetParent(boardGameObject.transform);
-    }
-
     private void Unparent(GameObject ballGameObject)
     {
         ballGameObject.transform.SetParent(null);

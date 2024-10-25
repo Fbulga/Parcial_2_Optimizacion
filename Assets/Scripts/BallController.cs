@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour
+public class BallController : MonoBehaviour, IPhysics
 {
     private Physics physics;
     // Start is called before the first frame update
