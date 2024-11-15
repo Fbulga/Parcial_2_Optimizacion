@@ -83,9 +83,9 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
             {
                 if (customPhysicsNuestro.SphereRectangleCollision(playerCollider,collider.GetComponent<SphereCollider>()))
                 {
-                    var colliderPhysics = collider.GetComponent<CustomPhysicsNuestro>();
-                    
-                    colliderPhysics.ApplyImpulse(-colliderPhysics.velocity);
+                    //var colliderPhysics = collider.GetComponent<CustomPhysicsNuestro>();
+                    Debug.Log("pelota toca paleta");
+                    //colliderPhysics.ApplyImpulse(-colliderPhysics.velocity);
                 }
             }
         }
