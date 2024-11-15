@@ -2,27 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour, IPhysics
+public class BallController : MonoBehaviour, IPhysics, ISphere
 {
-    private Physics physics;
+    private CustomPhysicsNuestro customPhysicsNuestro;
     // Start is called before the first frame update
     void Start()
     {
-        physics = this.gameObject.GetComponent<Physics>();
+        customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.ballOnBoard == false)
-        {
-            physics.ApplyGravity();
-            physics.ApplyFriction();    
-        }
-        else
-        {
-            
-        }
         
     }
 

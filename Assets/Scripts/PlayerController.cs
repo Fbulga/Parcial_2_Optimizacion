@@ -3,55 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IPhysics
+public class PlayerController : MonoBehaviour, IPhysics, IRectangle
 {
 
     [SerializeField] private float acceleration;
     [SerializeField] private float limits;
     [SerializeField] private GameObject ball;
     [SerializeField] private float ballImpulse;
-    [SerializeField] private float startTime;
-    
-    private float currentTime;
-    
-    private Physics physics;
-    private Physics ballPhysics;
+    [SerializeField] private float detectionRadius;
 
-    private Coroutine countDownCoroutine;
 
+    public static Action ReleaseBall;
+
+    private Collider[] colliders = new Collider[5];
+    private CustomPhysicsNuestro customPhysicsNuestro;
+    private Collider playerCollider;
     
     private void Start()
     {
-        currentTime = startTime;
-        ballPhysics = ball.GetComponent<Physics>();
-        physics = this.gameObject.GetComponent<Physics>();
-        countDownCoroutine = StartCoroutine(StartCountdown());
+        playerCollider = this.gameObject.GetComponent<BoxCollider>();
+        customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
+        ReleaseBall += ShootBall;
     }
     
     void Update()
     {
-        if (GameManager.Instance.ballOnBoard && Input.GetKeyDown(KeyCode.Space))
-        {
-            StopCoroutine(countDownCoroutine);
-            countDownCoroutine = null;
-            Unparent(ball);
-            
+        if (GameManager.Instance.ballOnBoard && Input.GetKey(KeyCode.Space))
+        { 
             ShootBall();
         } 
-        
         Movement();
+
+        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
+        DetectCollision(colliders);
     }
     
     private void CheckBorder()
     {
         if (transform.position.x < -limits)
         {
-            physics.velocity = new Vector3(0, 0, 0);
+            customPhysicsNuestro.velocity = new Vector3(0, 0, 0);
             transform.position = new Vector3(-limits, transform.position.y, transform.position.z);
         }
         else if (transform.position.x > limits)
         {
-            physics.velocity = new Vector3(0, 0, 0);
+            customPhysicsNuestro.velocity = new Vector3(0, 0, 0);
             transform.position = new Vector3(limits, transform.position.y, transform.position.z);
         }
     }
@@ -60,33 +56,39 @@ public class PlayerController : MonoBehaviour, IPhysics
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
-            physics.ApplyForce(new Vector3(Input.GetAxis("Horizontal"),0,0)*acceleration);
-            CheckBorder();
+            customPhysicsNuestro.ApplyForce(new Vector3(Input.GetAxis("Horizontal"),0,0)*acceleration);
         }
-        physics.ApplyFriction(); 
+        customPhysicsNuestro.ApplyFriction(); 
+        CheckBorder();
     }
     
     private void ShootBall()
     {
-        ballPhysics.ApplyImpulse(new Vector3(0,1,0) * ballImpulse);
+        Unparent(ball);
+        ball.GetComponent<CustomPhysicsNuestro>().ApplyImpulse(new Vector3(0,1,0) * ballImpulse);
         GameManager.Instance.ballOnBoard = false;
     }
     
-    private IEnumerator StartCountdown()
-    {
-        while (currentTime > 0)
-        {
-            Debug.Log("Tiempo restante: " + currentTime);
-            yield return new WaitForSeconds(1f); // Espera 1 segundo
-            currentTime--;
-        }
-        Unparent(ball);
-        ShootBall();
-    }
     
     private void Unparent(GameObject ballGameObject)
     {
         ballGameObject.transform.SetParent(null);
+    }
+
+    private void DetectCollision(Collider[] colliders)
+    {
+        foreach (Collider collider in colliders)
+        {
+            if (collider is ISphere)
+            {
+                if (customPhysicsNuestro.SphereRectangleCollision(playerCollider,collider.GetComponent<SphereCollider>()))
+                {
+                    var colliderPhysics = collider.GetComponent<CustomPhysicsNuestro>();
+                    
+                    colliderPhysics.ApplyImpulse(-colliderPhysics.velocity);
+                }
+            }
+        }
     }
     
 }

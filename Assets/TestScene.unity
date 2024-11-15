@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballOnBoard: 1
+  startTime: 5
 --- !u!1 &515178161
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +683,7 @@ MonoBehaviour:
   limits: 5.25
   ball: {fileID: 2090105712}
   ballImpulse: 10
-  startTime: 5
+  detectionRadius: 0
 --- !u!65 &1488897712
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -787,7 +788,6 @@ MonoBehaviour:
   accelerationApplied: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   frictionCoefficient: 10
-  gravity: {x: 0, y: 0, z: 0}
 --- !u!1 &1956008082
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,8 +929,7 @@ MonoBehaviour:
   mass: 1
   accelerationApplied: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
-  frictionCoefficient: 0
-  gravity: {x: 0, y: -9.81, z: 0}
+  frictionCoefficient: 1
 --- !u!135 &2090105714
 SphereCollider:
   m_ObjectHideFlags: 0
