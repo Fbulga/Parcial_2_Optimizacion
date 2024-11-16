@@ -25,7 +25,7 @@ public class PhysicsEngine : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         foreach (var gameObject in physicsDictionary)
         {

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         startTime -= Time.deltaTime;
         if (startTime <= 0f && ballOnBoard)

@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
     [SerializeField] private GameObject ball;
     [SerializeField] private float ballImpulse;
     [SerializeField] private float detectionRadius;
+    [SerializeField] private GameObject leftPoint;
+    [SerializeField] private GameObject rightPoint;
 
 
     public static Action ReleaseBall;
 
-    private Collider[] colliders = new Collider[5];
+    private Collider[] colliders = new Collider[1];
     private CustomPhysicsNuestro customPhysicsNuestro;
     private Collider playerCollider;
     
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
         ReleaseBall += ShootBall;
     }
     
-    void Update()
+    void FixedUpdate()
     {
         if (GameManager.Instance.ballOnBoard && Input.GetKey(KeyCode.Space))
         { 
@@ -37,21 +39,8 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
         Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         DetectCollision(colliders);
     }
-    
-    private void CheckBorder()
-    {
-        if (transform.position.x < -limits)
-        {
-            customPhysicsNuestro.velocity = new Vector3(0, 0, 0);
-            transform.position = new Vector3(-limits, transform.position.y, transform.position.z);
-        }
-        else if (transform.position.x > limits)
-        {
-            customPhysicsNuestro.velocity = new Vector3(0, 0, 0);
-            transform.position = new Vector3(limits, transform.position.y, transform.position.z);
-        }
-    }
-    
+
+   
     private void Movement()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
@@ -59,7 +48,7 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
             customPhysicsNuestro.ApplyForce(new Vector3(Input.GetAxis("Horizontal"),0,0)*acceleration);
         }
         customPhysicsNuestro.ApplyFriction(); 
-        CheckBorder();
+        //CheckBorder();
     }
     
     private void ShootBall()
@@ -79,16 +68,26 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
     {
         foreach (Collider collider in colliders)
         {
-            if (collider is ISphere)
+            if (collider is BoxCollider)
             {
-                if (customPhysicsNuestro.SphereRectangleCollision(playerCollider,collider.GetComponent<SphereCollider>()))
+                if (customPhysicsNuestro.RectangleCollision(playerCollider,collider) && collider.gameObject != this.gameObject)
                 {
-                    //var colliderPhysics = collider.GetComponent<CustomPhysicsNuestro>();
-                    Debug.Log("pelota toca paleta");
-                    //colliderPhysics.ApplyImpulse(-colliderPhysics.velocity);
+                    customPhysicsNuestro.velocity = new Vector3(0, 0, 0);
+                    if (transform.position.x < 0f)
+                    {
+                        transform.position = new Vector3(leftPoint.transform.position.x, transform.position.y, transform.position.z);
+                    }
+                    else
+                    {
+                        transform.position = new Vector3(rightPoint.transform.position.x, transform.position.y, transform.position.z);
+                    }
                 }
             }
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position,detectionRadius);
     }
     
 }
