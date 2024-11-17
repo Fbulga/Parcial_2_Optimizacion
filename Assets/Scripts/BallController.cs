@@ -8,7 +8,7 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
     private CustomPhysicsNuestro customPhysicsNuestro;
 
     [SerializeField] private float radius;
-    private Collider[] colliders = new Collider[1];
+    private Collider[] colliders = new Collider[2];
 
     private SphereCollider sphereCollider;
     // Start is called before the first frame update
@@ -36,9 +36,14 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
             {
                 if (collider.TryGetComponent<BoxCollider>(out BoxCollider box) && collider.TryGetComponent<PlayerController>(out PlayerController player) == false)
                 {
-                    if (customPhysicsNuestro.SphereRectangleCollision(box, sphereCollider))
+                    var response = customPhysicsNuestro.SphereRectangleCollisionStruct(box, sphereCollider);
+                    if (response.isTouching)
                     {
-                        //Teletransportar pelota
+                        // Dirección desde el punto de colisión hasta el centro de la esfera
+                        Vector2 direction = (new Vector2(transform.position.x, transform.position.y) - response.closestPoint).normalized;
+
+                        // Ajustar la posición de la esfera teniendo en cuenta su radio
+                        transform.position = response.closestPoint + direction * sphereCollider.radius;
                         customPhysicsNuestro.velocity *= -1f;
                         Debug.Log("pelota toca borde");
                     }

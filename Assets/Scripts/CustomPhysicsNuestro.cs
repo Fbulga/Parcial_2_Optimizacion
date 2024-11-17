@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace.Structs;
 using UnityEngine;
 
 public class CustomPhysicsNuestro : MonoBehaviour
@@ -44,6 +45,15 @@ public class CustomPhysicsNuestro : MonoBehaviour
         if (closestPoint.y > rec.bounds.max.y) closestPoint.y = rec.bounds.max.y;
 
         return Vector2.Distance(closestPoint, sphere.transform.position) < sphere.radius;
+    }
+    public CollisionResponseDto SphereRectangleCollisionStruct(Collider rec, SphereCollider sphere)
+    {
+        Vector2 closestPoint = sphere.transform.position;
+        if(closestPoint.x < rec.bounds.min.x) closestPoint.x = rec.bounds.min.x;
+        if (closestPoint.x > rec.bounds.max.x) closestPoint.x = rec.bounds.max.x;
+        if(closestPoint.y < rec.bounds.min.y) closestPoint.y = rec.bounds.min.y;
+        if (closestPoint.y > rec.bounds.max.y) closestPoint.y = rec.bounds.max.y;
+        return new CollisionResponseDto(){closestPoint = closestPoint, isTouching = Vector2.Distance(closestPoint, sphere.transform.position) < sphere.radius};
     }
 
     public bool SphereCollision(SphereCollider sphere1, SphereCollider sphere2)

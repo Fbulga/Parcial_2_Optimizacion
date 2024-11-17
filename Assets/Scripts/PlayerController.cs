@@ -11,13 +11,11 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
     [SerializeField] private GameObject ball;
     [SerializeField] private float ballImpulse;
     [SerializeField] private float detectionRadius;
-    [SerializeField] private GameObject leftPoint;
-    [SerializeField] private GameObject rightPoint;
 
 
     public static Action ReleaseBall;
 
-    private Collider[] colliders = new Collider[1];
+    private Collider[] colliders = new Collider[2];
     private CustomPhysicsNuestro customPhysicsNuestro;
     private Collider playerCollider;
     
@@ -35,12 +33,15 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
             ShootBall();
         } 
         Movement();
+    }
 
+    private void LateUpdate()
+    {
         Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         DetectCollision(colliders);
     }
 
-   
+
     private void Movement()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
@@ -70,17 +71,22 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
         {
             if (collider is BoxCollider)
             {
-                if (customPhysicsNuestro.RectangleCollision(playerCollider,collider) && collider.gameObject != this.gameObject)
+                if (collider.gameObject != gameObject && customPhysicsNuestro.RectangleCollision(playerCollider,collider))
                 {
-                    customPhysicsNuestro.velocity = new Vector3(0, 0, 0);
-                    if (transform.position.x < 0f)
-                    {
-                        transform.position = new Vector3(leftPoint.transform.position.x, transform.position.y, transform.position.z);
-                    }
-                    else
-                    {
-                        transform.position = new Vector3(rightPoint.transform.position.x, transform.position.y, transform.position.z);
-                    }
+                    customPhysicsNuestro.velocity = Vector3.zero;
+                    
+                    // Calcula la dirección de la colisión
+                    float directionX = Mathf.Sign(transform.position.x - collider.transform.position.x);
+
+                    // Calcula la distancia de separación horizontalmente, tomando en cuenta la mitad del ancho de cada colisionador
+                    float distanceToMove = playerCollider.bounds.extents.x + collider.bounds.extents.x;
+
+                    // Ajusta la posición en el borde de colisión, tomando en cuenta la mitad del ancho o alto en la dirección de la colisión
+                    transform.position = new Vector3(
+                        collider.transform.position.x + directionX * distanceToMove,
+                        transform.position.y,
+                        transform.position.z
+                    );
                 }
             }
         }
