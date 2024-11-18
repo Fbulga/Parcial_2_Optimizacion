@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace.Structs;
+using Enums;
 using UnityEngine;
 
 public class CustomPhysicsNuestro : MonoBehaviour
@@ -49,11 +50,35 @@ public class CustomPhysicsNuestro : MonoBehaviour
     public CollisionResponseDto SphereRectangleCollisionStruct(Collider rec, SphereCollider sphere)
     {
         Vector2 closestPoint = sphere.transform.position;
-        if(closestPoint.x < rec.bounds.min.x) closestPoint.x = rec.bounds.min.x;
+        
+        if (closestPoint.x < rec.bounds.min.x) closestPoint.x = rec.bounds.min.x;
         if (closestPoint.x > rec.bounds.max.x) closestPoint.x = rec.bounds.max.x;
-        if(closestPoint.y < rec.bounds.min.y) closestPoint.y = rec.bounds.min.y;
+        if (closestPoint.y < rec.bounds.min.y) closestPoint.y = rec.bounds.min.y;
         if (closestPoint.y > rec.bounds.max.y) closestPoint.y = rec.bounds.max.y;
-        return new CollisionResponseDto(){closestPoint = closestPoint, isTouching = Vector2.Distance(closestPoint, sphere.transform.position) < sphere.radius};
+        
+        bool isTouching = Vector2.Distance(closestPoint, sphere.transform.position) < sphere.radius;
+
+        // Determina el tipo de colisión (horizontal, vertical o esquina)
+        CollisionType collisionType = CollisionType.Corner;
+        if (isTouching)
+        {
+            float deltaX = Mathf.Abs(closestPoint.x - sphere.transform.position.x);
+            float deltaY = Mathf.Abs(closestPoint.y - sphere.transform.position.y);
+            
+            if (deltaX > deltaY)
+            {
+                collisionType = CollisionType.Horizontal;
+            }
+            else if (deltaY > deltaX)
+            {
+                collisionType = CollisionType.Vertical;
+            }
+            else //if (Mathf.Approximately(deltaX, deltaY))
+            {
+                collisionType = CollisionType.Corner;
+            }
+        }
+        return new CollisionResponseDto() { closestPoint = closestPoint, isTouching = isTouching, collisionType = collisionType };
     }
 
     public bool SphereCollision(SphereCollider sphere1, SphereCollider sphere2)

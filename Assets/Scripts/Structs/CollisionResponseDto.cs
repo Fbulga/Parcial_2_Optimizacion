@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 namespace DefaultNamespace.Structs
@@ -6,5 +7,6 @@ namespace DefaultNamespace.Structs
     {
         public Vector2 closestPoint;
         public bool isTouching;
+        public CollisionType collisionType;
     }
 }

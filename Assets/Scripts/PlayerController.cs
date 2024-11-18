@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
     private Collider[] colliders = new Collider[2];
     private CustomPhysicsNuestro customPhysicsNuestro;
     private Collider playerCollider;
+    public Vector3 Velocity => customPhysicsNuestro.velocity;
     
     private void Start()
     {
