@@ -1,11 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Enums;
+using DefaultNamespace;
 using Interfaces;
 using UnityEngine;
 
-public class BallController : MonoBehaviour, IPhysics, ISphere
+public class BallController : CustomBehaviour, IPhysics, ISphere
 {
     private CustomPhysicsNuestro customPhysicsNuestro;
 
@@ -16,13 +13,13 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
 
     private SphereCollider sphereCollider;
     
-    void Start()
+    protected override void CustomStart()
     {
         customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
         sphereCollider = GetComponent<SphereCollider>();
     }
     
-    void FixedUpdate()
+    protected override void CustomFixedUpdate()
     {
         Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
         if (!GameManager.Instance.ballOnBoard)
@@ -75,11 +72,5 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
                 }
             }
         }
-    }
-
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

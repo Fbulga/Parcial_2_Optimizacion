@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : CustomBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Action OnBrickDestroyed;
@@ -37,12 +36,7 @@ public class GameManager : MonoBehaviour
         OnBrickDestroyed -= PointsUp;
     }
 
-    private void Start()
-    {
-
-    }
-
-    private void Update()
+    protected override void CustomUpdate()
     {
         if (!isTimerGoing) return;
         

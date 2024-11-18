@@ -1,17 +1,16 @@
-using Interfaces;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public abstract class CustomBehavior : MonoBehaviour , ICustomUpdated
+    public abstract class CustomBehaviour : MonoBehaviour
     {
-        public virtual void CustomStart() { }
+        protected virtual void CustomStart() { }
 
-        public virtual void CustomUpdate() { }
+        protected virtual void CustomUpdate() { }
 
-        public virtual void CustomFixedUpdate() { }
+        protected virtual void CustomFixedUpdate() { }
 
-        public virtual void CustomLateUpdate() { }
+        protected virtual void CustomLateUpdate() { }
 
         private void OnEnable()
         {

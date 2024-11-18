@@ -1,9 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IPhysics, IRectangle
+public class PlayerController : CustomBehaviour, IPhysics, IRectangle
 {
 
     [SerializeField] private float acceleration;
@@ -22,18 +21,18 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
     private Collider playerCollider;
     public Vector3 Velocity => customPhysicsNuestro.velocity;
     
-    private void Start()
+    protected override void CustomStart()
     {
         playerCollider = this.gameObject.GetComponent<BoxCollider>();
         customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
         ReleaseBall += ShootBall;
     }
 
-    void Update()
+    protected override void CustomUpdate()
     {
         InputPlayer = Input.GetAxis("Horizontal");
     }
-    void FixedUpdate()
+    protected override void CustomFixedUpdate()
     {
         if (GameManager.Instance.ballOnBoard && Input.GetKey(KeyCode.Space))
         { 
@@ -42,7 +41,7 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
         Movement();
     }
 
-    private void LateUpdate()
+    protected override void CustomLateUpdate()
     {
         Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         DetectCollision(colliders);
@@ -107,9 +106,4 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
             }
         }
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position,detectionRadius);
-    }
-    
 }

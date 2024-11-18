@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
-public class PhysicsEngine : MonoBehaviour
+public class PhysicsEngine : CustomBehaviour
 {
     [SerializeField] private GameObject[] physicsAffectedGameObjects;
 
@@ -11,7 +10,7 @@ public class PhysicsEngine : MonoBehaviour
     private Dictionary<GameObject, CustomPhysicsNuestro> physicsDictionary = new Dictionary<GameObject, CustomPhysicsNuestro>();
     
 
-    private void Start()
+    protected override void CustomStart()
     {
         for (int i = 0; i < physicsAffectedGameObjects.Length; i++)
         {
@@ -25,7 +24,7 @@ public class PhysicsEngine : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    protected override void CustomFixedUpdate()
     {
         foreach (var gameObject in physicsDictionary)
         {

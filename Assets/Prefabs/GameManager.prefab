@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5530292421439200871}
   - component: {fileID: 4795887025188983541}
   - component: {fileID: 5123237647452099549}
+  - component: {fileID: 6889134897870744848}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -60,5 +61,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2bddce53f19d3439517e2c78ea6a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 0
   ballOnBoard: 1
   startTime: 5
+--- !u!114 &6889134897870744848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818112458932738977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643c289f15c34a4d833771d515356288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
