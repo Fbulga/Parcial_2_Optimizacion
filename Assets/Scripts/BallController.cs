@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using Interfaces;
 using UnityEngine;
 
 public class BallController : MonoBehaviour, IPhysics, ISphere
@@ -41,9 +42,12 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
                     var response = customPhysicsNuestro.SphereRectangleCollisionStruct(box, sphereCollider);
                     if (response.isTouching)
                     {
-                        collider.TryGetComponent<PlayerController>(out PlayerController player);
-
                         float playerVelocity = 0f;
+                        
+                        collider.TryGetComponent<PlayerController>(out PlayerController player);
+                        collider.TryGetComponent<IDestructible>(out IDestructible brick);
+                        
+                        if (brick != null) brick.TryDestroyMe();
                         if (player != null) playerVelocity = player.Velocity.magnitude * Mathf.Sign(player.Velocity.x);
 
                         // Reflejar la velocidad usando la normal en el punto de colisión

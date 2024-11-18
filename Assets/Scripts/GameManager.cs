@@ -7,9 +7,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public Action OnBrickDestroyed;
+    [SerializeField] private int points;
+    private bool isTimerGoing = true;
     
-    [SerializeField] public bool ballOnBoard;
-    [SerializeField] public float startTime;
+    public bool ballOnBoard;
+    public float startTime;
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,16 +27,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        OnBrickDestroyed += PointsUp;
+    }
+
+    private void OnDisable()
+    {
+        OnBrickDestroyed -= PointsUp;
+    }
+
     private void Start()
     {
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        if (!isTimerGoing) return;
+        
         startTime -= Time.deltaTime;
         if (startTime <= 0f && ballOnBoard)
         {
+            isTimerGoing = false;
             StartGame();
         }
     }
@@ -40,6 +57,11 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         PlayerController.ReleaseBall?.Invoke();
+    }
+
+    private void PointsUp()
+    {
+        points++;
     }
     
 }

@@ -1,0 +1,24 @@
+using Interfaces;
+using UnityEngine;
+
+namespace DefaultNamespace
+{
+    public class Bricks: MonoBehaviour, IDestructible
+    {
+        [SerializeField] private int health = 3;
+        public void DestroyMe()
+        {
+            GameManager.Instance.OnBrickDestroyed?.Invoke();
+            Destroy(gameObject);
+        }
+
+        public void TryDestroyMe()
+        {
+            health--;
+            if (health <= 0)
+            {
+                DestroyMe();
+            }
+        }
+    }
+}
