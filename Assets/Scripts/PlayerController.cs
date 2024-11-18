@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
     [SerializeField] private GameObject ball;
     [SerializeField] private float ballImpulse;
     [SerializeField] private float detectionRadius;
+    private bool a;
+    private float InputPlayer;
 
 
     public static Action ReleaseBall;
 
-    private Collider[] colliders = new Collider[2];
+    private Collider[] colliders = new Collider[4];
     private CustomPhysicsNuestro customPhysicsNuestro;
     private Collider playerCollider;
     public Vector3 Velocity => customPhysicsNuestro.velocity;
@@ -26,7 +28,11 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
         customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
         ReleaseBall += ShootBall;
     }
-    
+
+    void Update()
+    {
+        InputPlayer = Input.GetAxis("Horizontal");
+    }
     void FixedUpdate()
     {
         if (GameManager.Instance.ballOnBoard && Input.GetKey(KeyCode.Space))
@@ -45,9 +51,18 @@ public class PlayerController : MonoBehaviour, IPhysics, IRectangle
 
     private void Movement()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (InputPlayer != 0)
         {
-            customPhysicsNuestro.ApplyForce(new Vector3(Input.GetAxis("Horizontal"),0,0)*acceleration);
+            if (a)
+            {
+                customPhysicsNuestro.ApplyImpulse(new Vector3(InputPlayer,0,0)*(acceleration * 1f));
+                a = false;
+            }
+            customPhysicsNuestro.ApplyForce(new Vector3(InputPlayer,0,0)*acceleration);
+        }
+        else
+        {
+            a = true;
         }
         customPhysicsNuestro.ApplyFriction(); 
         //CheckBorder();

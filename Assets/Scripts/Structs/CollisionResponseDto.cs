@@ -7,6 +7,6 @@ namespace DefaultNamespace.Structs
     {
         public Vector2 closestPoint;
         public bool isTouching;
-        public CollisionType collisionType;
+        public Vector2 collisionNormal;
     }
 }

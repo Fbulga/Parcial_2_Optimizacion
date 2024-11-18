@@ -14,15 +14,14 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
     private Collider[] colliders = new Collider[4];
 
     private SphereCollider sphereCollider;
-    // Start is called before the first frame update
+    
     void Start()
     {
         customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
         sphereCollider = GetComponent<SphereCollider>();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    void FixedUpdate()
     {
         Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
         if (!GameManager.Instance.ballOnBoard)
@@ -43,54 +42,40 @@ public class BallController : MonoBehaviour, IPhysics, ISphere
                     if (response.isTouching)
                     {
                         collider.TryGetComponent<PlayerController>(out PlayerController player);
-                        
+
                         float playerVelocity = 0f;
                         if (player != null) playerVelocity = player.Velocity.magnitude * Mathf.Sign(player.Velocity.x);
 
-                        // Dirección desde el punto de colisión hasta el centro de la esfera
-                        Vector2 direction = (new Vector2(transform.position.x, transform.position.y) - response.closestPoint).normalized;
-
-                        // Ajustar la posición de la esfera teniendo en cuenta su radio
-                        transform.position = response.closestPoint + direction * ((sphereCollider.radius / 2)+0.175f);
-                        switch (response.collisionType)
+                        // Reflejar la velocidad usando la normal en el punto de colisión
+                        Vector2 normal = response.collisionNormal;
+                        Vector2 reflectedVelocity =
+                            Vector2.Reflect(
+                                new Vector2(customPhysicsNuestro.velocity.x, customPhysicsNuestro.velocity.y), normal);
+                        
+                        customPhysicsNuestro.velocity = new Vector3(reflectedVelocity.x, reflectedVelocity.y, 0);
+                        
+                        transform.position = response.closestPoint + normal * ((sphereCollider.radius) + 0.025f);
+                        
+                        if (normal.y != 0) // Colisión vertical
                         {
-                            case CollisionType.Horizontal:
-                                customPhysicsNuestro.velocity = new Vector3(-customPhysicsNuestro.velocity.x, customPhysicsNuestro.velocity.y, 0);
-                                break;
-                            case CollisionType.Vertical:
-                                Vector3 newVelocity =
-                                    new Vector3(
-                                        customPhysicsNuestro.velocity.x + playerVelocity * playerInfluenceFactor,
-                                        -customPhysicsNuestro.velocity.y, 0);
-                                customPhysicsNuestro.velocity = Vector3.ClampMagnitude(newVelocity, maxSpeed);
-                                //customPhysicsNuestro.velocity = Vector3.zero;
-                                break;
-                            case CollisionType.Corner:
-                                customPhysicsNuestro.velocity *= -1;
-                                break;
-                            default:
-                                customPhysicsNuestro.velocity *= -1;
-                                break;
+                            Vector2 newVec = new Vector2(
+                                customPhysicsNuestro.velocity.x + playerVelocity * playerInfluenceFactor,
+                                customPhysicsNuestro.velocity.y
+                            );
+
+                            newVec = newVec.normalized * maxSpeed;
+                            customPhysicsNuestro.velocity = new Vector3(newVec.x, newVec.y, 0);
                         }
-                        Debug.Log("pelota toca borde");
+                        
                     }
                 }
-                // if (collider.TryGetComponent<PlayerController>(out PlayerController paddle))
-                // {
-                //     if (customPhysicsNuestro.SphereRectangleCollision(box, sphereCollider))
-                //     {
-                //         //Teletransportar pelota
-                //         customPhysicsNuestro.velocity = new Vector3(box.gameObject.transform.position.x-transform.position.x,10f,0f);
-                //         //customPhysicsNuestro.ApplyImpulse(Vector3.Normalize(new Vector3(box.gameObject.transform.position.x-transform.position.x,1f,0f)));
-                //         Debug.Log("pelota toca paleta");
-                //     }
-                // }
             }
         }
     }
 
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position,radius);
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
