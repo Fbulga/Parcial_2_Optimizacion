@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class CustomUpdateManager : MonoBehaviour
@@ -42,5 +43,19 @@ public class CustomUpdateManager : MonoBehaviour
     private void LateUpdate()
     {
         OnLateUpdate?.Invoke();
+    }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        OnStart?.Invoke();
     }
 }

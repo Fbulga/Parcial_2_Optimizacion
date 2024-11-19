@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    public class Bricks: MonoBehaviour, IDestructible
+    public class Bricks: CustomBehaviour, IDestructible
     {
         [SerializeField] private int health = 3;
         public void DestroyMe()
@@ -19,6 +19,11 @@ namespace DefaultNamespace
             {
                 DestroyMe();
             }
+        }
+
+        protected override void CustomStart()
+        {
+            GameManager.Instance.AddBrick();
         }
     }
 }

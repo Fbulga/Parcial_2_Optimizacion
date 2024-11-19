@@ -8,6 +8,7 @@ public class GameManager : CustomBehaviour
     public static GameManager Instance { get; private set; }
     public Action OnBrickDestroyed;
     [SerializeField] private int points;
+    [SerializeField] private int BricksRemaining;
     private bool isTimerGoing = true;
     
     public bool ballOnBoard;
@@ -56,6 +57,16 @@ public class GameManager : CustomBehaviour
     private void PointsUp()
     {
         points++;
+        BricksRemaining--;
+        if (BricksRemaining <= 0)
+        {
+            Debug.Log("Game Over");
+        }
+    }
+
+    public void AddBrick()
+    {
+        BricksRemaining++;
     }
     
 }

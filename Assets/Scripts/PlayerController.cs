@@ -7,8 +7,7 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
 
     [SerializeField] private float acceleration;
     [SerializeField] private float limits;
-    [SerializeField] private GameObject ball;
-    [SerializeField] private float ballImpulse;
+    [SerializeField] private BallController ball;
     [SerializeField] private float detectionRadius;
     private bool a;
     private float InputPlayer;
@@ -16,7 +15,7 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
 
     public static Action ReleaseBall;
 
-    private Collider[] colliders = new Collider[4];
+    private Collider[] colliders = new Collider[8];
     private CustomPhysicsNuestro customPhysicsNuestro;
     private Collider playerCollider;
     public Vector3 Velocity => customPhysicsNuestro.velocity;
@@ -26,8 +25,8 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         playerCollider = this.gameObject.GetComponent<BoxCollider>();
         customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
         ReleaseBall += ShootBall;
+        colliders = new Collider[4];
     }
-
     protected override void CustomUpdate()
     {
         InputPlayer = Input.GetAxis("Horizontal");
@@ -63,14 +62,13 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         {
             a = true;
         }
-        customPhysicsNuestro.ApplyFriction(); 
-        //CheckBorder();
+        customPhysicsNuestro.ApplyFriction();
     }
     
     private void ShootBall()
     {
-        Unparent(ball);
-        ball.GetComponent<CustomPhysicsNuestro>().ApplyImpulse(new Vector3(0,1,0) * ballImpulse);
+        Unparent(ball.gameObject);
+        ball.GetComponent<CustomPhysicsNuestro>().ApplyImpulse(new Vector3(0,1,0) * ball.MaxSpeed);
         GameManager.Instance.ballOnBoard = false;
     }
     

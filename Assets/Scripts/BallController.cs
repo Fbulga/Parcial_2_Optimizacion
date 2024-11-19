@@ -9,13 +9,13 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
     [SerializeField] private float radius;
     [SerializeField] private float playerInfluenceFactor;
     [SerializeField] private float maxSpeed;
-    private Collider[] colliders = new Collider[4];
+    private Collider[] colliders = new Collider[10];
 
     private SphereCollider sphereCollider;
-    
+    public float MaxSpeed => maxSpeed;
     protected override void CustomStart()
     {
-        customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
+        customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
         sphereCollider = GetComponent<SphereCollider>();
     }
     
@@ -27,12 +27,12 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
             CheckCollisions();
         }
     }
-
+    
     void CheckCollisions()
     {
         foreach (var collider in colliders)
         {
-            if (collider is not null)
+            if (collider != null)
             {
                 if (collider.TryGetComponent<BoxCollider>(out BoxCollider box))
                 {
@@ -56,7 +56,6 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
                         customPhysicsNuestro.velocity = new Vector3(reflectedVelocity.x, reflectedVelocity.y, 0);
                         
                         transform.position = response.closestPoint + normal * ((sphereCollider.radius) + 0.025f);
-                        
                         if (normal.y != 0) // Colisión vertical
                         {
                             Vector2 newVec = new Vector2(
