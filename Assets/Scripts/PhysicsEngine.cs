@@ -27,7 +27,7 @@ public class PhysicsEngine : CustomBehaviour
     {
         foreach (var gameObject in physicsDictionary)
         {
-            CalculatePhysics(gameObject,Time.deltaTime);
+           if(gameObject.Key.activeSelf) CalculatePhysics(gameObject,Time.deltaTime);
         }
     }
 

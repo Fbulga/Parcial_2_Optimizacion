@@ -9,6 +9,8 @@ public class GameManager : CustomBehaviour
     public Action OnBrickDestroyed;
     [SerializeField] private int points;
     [SerializeField] private int BricksRemaining;
+    [SerializeField] private int Health;
+    [SerializeField] private PlayerController player;
     private bool isTimerGoing = true;
     
     public bool ballOnBoard;
@@ -36,23 +38,7 @@ public class GameManager : CustomBehaviour
     {
         OnBrickDestroyed -= PointsUp;
     }
-
-    protected override void CustomUpdate()
-    {
-        if (!isTimerGoing) return;
-        
-        startTime -= Time.deltaTime;
-        if (startTime <= 0f && ballOnBoard)
-        {
-            isTimerGoing = false;
-            StartGame();
-        }
-    }
-
-    private void StartGame()
-    {
-        PlayerController.ReleaseBall?.Invoke();
-    }
+    
 
     private void PointsUp()
     {
@@ -60,13 +46,34 @@ public class GameManager : CustomBehaviour
         BricksRemaining--;
         if (BricksRemaining <= 0)
         {
-            Debug.Log("Game Over");
+            Debug.Log("Game Over, ganaste");
         }
     }
 
     public void AddBrick()
     {
         BricksRemaining++;
+    }
+    public void HealthUp()
+    {
+        Health++;
+    }
+    public void HealthDown()
+    {
+        Health--;
+        player.Parent();
+        ballOnBoard = true;
+        GameOver();
+    }
+    
+    public void SetPLayerInstance(PlayerController _player)
+    {
+        player = _player;
+    }
+
+    private void GameOver()
+    {
+        if (Health <= 0) Debug.Log("Game Over, perdiste");
     }
     
 }

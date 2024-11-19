@@ -9,6 +9,7 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
     [SerializeField] private float radius;
     [SerializeField] private float playerInfluenceFactor;
     [SerializeField] private float maxSpeed;
+    [SerializeField] private Transform ballPoint;
     private Collider[] colliders = new Collider[10];
 
     private SphereCollider sphereCollider;
@@ -22,10 +23,23 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
     protected override void CustomFixedUpdate()
     {
         Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
-        if (!GameManager.Instance.ballOnBoard)
+        if (!GameManager.Instance.ballOnBoard )
         {
             CheckCollisions();
         }
+    }
+
+    private void DestroyMe()
+    {        
+        this.transform.position = ballPoint.position;
+        customPhysicsNuestro.velocity = Vector3.zero;
+        gameObject.SetActive(false);
+        GameManager.Instance.HealthDown();
+    }
+
+    public void asd()
+    {
+        //this.transform.position = ballPoint.position;
     }
     
     void CheckCollisions()
@@ -40,6 +54,13 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
                     if (response.isTouching)
                     {
                         float playerVelocity = 0f;
+                        
+                        collider.TryGetComponent<DeadZone>(out DeadZone deadZone);
+                        if (deadZone != null)
+                        {
+                            DestroyMe();
+                            return;
+                        }
                         
                         collider.TryGetComponent<PlayerController>(out PlayerController player);
                         collider.TryGetComponent<IDestructible>(out IDestructible brick);

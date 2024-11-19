@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5123237647452099549, guid: b05a9b41866ab42458b39f619c589f7b, type: 3}
+      propertyPath: Health
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5530292421439200871, guid: b05a9b41866ab42458b39f619c589f7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1404,6 +1408,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2699979891115698905, guid: ad9b65ba88757bc4391b5a34ce6689d9, type: 3}
   m_PrefabInstance: {fileID: 1489443675}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &394124613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6531307809360380665, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
+  m_PrefabInstance: {fileID: 6578637507379566099}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &399837762
 PrefabInstance:
@@ -6142,6 +6151,11 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!4 &1475500312 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1703263036678313674, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
+  m_PrefabInstance: {fileID: 6578637507379566099}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1477180059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7190,6 +7204,7 @@ GameObject:
   - component: {fileID: 1758281481}
   - component: {fileID: 1758281480}
   - component: {fileID: 1758281479}
+  - component: {fileID: 1758281482}
   m_Layer: 0
   m_Name: Buttom
   m_TagString: Untagged
@@ -7283,6 +7298,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1758281477}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1758281482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758281477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19fe64d92e7542d4962139055a6a23d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1760259813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2699979891115698905, guid: ad9b65ba88757bc4391b5a34ce6689d9, type: 3}
@@ -9502,13 +9529,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1475500302}
     - target: {fileID: 957953812935679671, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
+      propertyPath: ballPos
+      value: 
+      objectReference: {fileID: 394124613}
+    - target: {fileID: 957953812935679671, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
       propertyPath: ballImpulse
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7325950450768800098, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
       propertyPath: maxSpeed
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 7325950450768800098, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
+      propertyPath: ballPoint
+      value: 
+      objectReference: {fileID: 394124613}
+    - target: {fileID: 7325950450768800098, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
+      propertyPath: _transform
+      value: 
+      objectReference: {fileID: 1475500312}
     - target: {fileID: 7810673347371361277, guid: 8ce82872019d46b46a1f9f9843b83f3b, type: 3}
       propertyPath: m_Name
       value: Player

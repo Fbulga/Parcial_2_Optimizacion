@@ -9,6 +9,8 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     [SerializeField] private float limits;
     [SerializeField] private BallController ball;
     [SerializeField] private float detectionRadius;
+    [SerializeField] private Transform ballPos;
+    private CustomPhysicsNuestro customPhysicsNuestroBall;
     private bool a;
     private float InputPlayer;
 
@@ -26,6 +28,8 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
         ReleaseBall += ShootBall;
         colliders = new Collider[4];
+        GameManager.Instance.SetPLayerInstance(this);
+        customPhysicsNuestroBall = ball.GetComponent<CustomPhysicsNuestro>();
     }
     protected override void CustomUpdate()
     {
@@ -67,17 +71,22 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     
     private void ShootBall()
     {
-        Unparent(ball.gameObject);
-        ball.GetComponent<CustomPhysicsNuestro>().ApplyImpulse(new Vector3(0,1,0) * ball.MaxSpeed);
+        Unparent();
+        customPhysicsNuestroBall.ApplyImpulse(new Vector3(0,1,0) * ball.MaxSpeed);
         GameManager.Instance.ballOnBoard = false;
     }
     
     
-    private void Unparent(GameObject ballGameObject)
+    private void Unparent()
     {
-        ballGameObject.transform.SetParent(null);
+        ball.transform.SetParent(null);
     }
-
+    public void Parent()
+    {
+        ball.transform.SetParent(gameObject.transform);
+        ball.gameObject.SetActive(true);
+        ball.asd();
+    }
     private void DetectCollision(Collider[] colliders)
     {
         foreach (Collider collider in colliders)
