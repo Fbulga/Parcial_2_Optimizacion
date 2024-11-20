@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,14 @@ namespace DefaultNamespace.UI
         public void GoToGame()
         {
             SceneManager.LoadScene(1);
+        }
+
+        public void ExitGame()
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#endif
         }
     }
 }
