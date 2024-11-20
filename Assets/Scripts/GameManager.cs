@@ -10,11 +10,9 @@ public class GameManager : CustomBehaviour
     [SerializeField] private int points;
     [SerializeField] private int BricksRemaining;
     [SerializeField] private int Health;
+    [SerializeField] private int activeBalls;
     [SerializeField] private PlayerController player;
-    private bool isTimerGoing = true;
-    
     public bool ballOnBoard;
-    public float startTime;
     
     private void Awake()
     {
@@ -69,6 +67,18 @@ public class GameManager : CustomBehaviour
     public void SetPLayerInstance(PlayerController _player)
     {
         player = _player;
+    }
+    public void ActiveBallsUp()
+    {
+        activeBalls++;
+    }
+    public void ActiveBallsDown()
+    {
+        activeBalls--;
+        if (activeBalls <= 0)
+        {
+            HealthDown();
+        }
     }
 
     private void GameOver()

@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 using Interfaces;
 using UnityEngine;
@@ -10,36 +11,44 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
     [SerializeField] private float playerInfluenceFactor;
     [SerializeField] private float maxSpeed;
     [SerializeField] private Transform ballPoint;
+
     private Collider[] colliders = new Collider[10];
+    private bool a = true;
 
     private SphereCollider sphereCollider;
     public float MaxSpeed => maxSpeed;
+
     protected override void CustomStart()
     {
         customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
         sphereCollider = GetComponent<SphereCollider>();
+        
     }
     
     protected override void CustomFixedUpdate()
     {
         Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
-        if (!GameManager.Instance.ballOnBoard )
+        if (!GameManager.Instance.ballOnBoard)
         {
             CheckCollisions();
         }
     }
 
-    private void DestroyMe()
+    public void ReUseMe()
     {        
-        this.transform.position = ballPoint.position;
+        transform.position = ballPoint.position;
         customPhysicsNuestro.velocity = Vector3.zero;
-        gameObject.SetActive(false);
-        GameManager.Instance.HealthDown();
     }
 
-    public void asd()
+    public void ImpulseMe()
     {
-        //this.transform.position = ballPoint.position;
+        transform.SetParent(null);
+        customPhysicsNuestro.ApplyImpulse(new Vector3(0,1,0) * maxSpeed);
+    }
+    private void Deactivate()
+    {
+        gameObject.SetActive(false);
+        GameManager.Instance.ActiveBallsDown();
     }
     
     void CheckCollisions()
@@ -58,7 +67,7 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
                         collider.TryGetComponent<DeadZone>(out DeadZone deadZone);
                         if (deadZone != null)
                         {
-                            DestroyMe();
+                            Deactivate();
                             return;
                         }
                         
@@ -93,4 +102,5 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
             }
         }
     }
+   
 }

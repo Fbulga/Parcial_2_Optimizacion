@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace;
+using Interfaces;
 using UnityEngine;
 
 public class PlayerController : CustomBehaviour, IPhysics, IRectangle
@@ -9,14 +10,11 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     [SerializeField] private float limits;
     [SerializeField] private BallController ball;
     [SerializeField] private float detectionRadius;
-    [SerializeField] private Transform ballPos;
+    public Transform ballPos;
+    
     private CustomPhysicsNuestro customPhysicsNuestroBall;
     private bool a;
     private float InputPlayer;
-
-
-    public static Action ReleaseBall;
-
     private Collider[] colliders = new Collider[8];
     private CustomPhysicsNuestro customPhysicsNuestro;
     private Collider playerCollider;
@@ -24,9 +22,9 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     
     protected override void CustomStart()
     {
-        playerCollider = this.gameObject.GetComponent<BoxCollider>();
-        customPhysicsNuestro = this.gameObject.GetComponent<CustomPhysicsNuestro>();
-        ReleaseBall += ShootBall;
+        Debug.Log("PlayerController");
+        playerCollider = gameObject.GetComponent<BoxCollider>();
+        customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
         colliders = new Collider[4];
         GameManager.Instance.SetPLayerInstance(this);
         customPhysicsNuestroBall = ball.GetComponent<CustomPhysicsNuestro>();
@@ -57,7 +55,7 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         {
             if (a)
             {
-                customPhysicsNuestro.ApplyImpulse(new Vector3(InputPlayer,0,0)*(acceleration * 1f));
+                customPhysicsNuestro.ApplyImpulse(new Vector3(InputPlayer,0,0)*(acceleration * 1.5f));
                 a = false;
             }
             customPhysicsNuestro.ApplyForce(new Vector3(InputPlayer,0,0)*acceleration);
@@ -76,16 +74,17 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         GameManager.Instance.ballOnBoard = false;
     }
     
-    
     private void Unparent()
     {
         ball.transform.SetParent(null);
     }
     public void Parent()
     {
-        ball.transform.SetParent(gameObject.transform);
+        ball.ReUseMe();
         ball.gameObject.SetActive(true);
-        ball.asd();
+        ball.transform.SetParent(gameObject.transform);
+        GameManager.Instance.ActiveBallsUp();
+        
     }
     private void DetectCollision(Collider[] colliders)
     {
@@ -93,6 +92,7 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         {
             if (collider is BoxCollider)
             {
+                //if(collider.TryGetComponent<IPowerUp>(out IPowerUp powerUp)) powerUp.UsePowerUp();
                 if (collider.gameObject != gameObject && customPhysicsNuestro.RectangleCollision(playerCollider,collider))
                 {
                     customPhysicsNuestro.velocity = Vector3.zero;

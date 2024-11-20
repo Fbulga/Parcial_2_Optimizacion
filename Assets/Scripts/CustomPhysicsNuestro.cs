@@ -21,20 +21,17 @@ public class CustomPhysicsNuestro : MonoBehaviour
     public void ApplyFriction()
     {
         float speed = velocity.magnitude;
-
-        // Define un umbral de velocidad para cambiar de fricción de fluido a fricción de suelo
-        float lowSpeedThreshold = 0.5f; // Ajusta este valor según lo necesites
+        
+        float lowSpeedThreshold = 0.5f;
         Vector2 frictionForce;
 
         if (speed > lowSpeedThreshold)
         {
-            // Fricción de tipo fluido (proporcional a la velocidad)
             frictionForce = velocity * -frictionCoefficient;
         }
         else
         {
-            // Fricción de suelo (constante para detener el objeto)
-            frictionForce = -velocity.normalized * 20f; // Usa un valor de fricción constante
+            frictionForce = -velocity.normalized * 20f;
         }
 
         ApplyForce(frictionForce);

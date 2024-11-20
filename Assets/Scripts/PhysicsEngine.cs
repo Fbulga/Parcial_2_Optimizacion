@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class PhysicsEngine : CustomBehaviour
 
     private Dictionary<int, GameObject> gameObjectsDictionary = new Dictionary<int, GameObject>();
     private Dictionary<GameObject, CustomPhysicsNuestro> physicsDictionary = new Dictionary<GameObject, CustomPhysicsNuestro>();
-    
     protected override void CustomStart()
     {
         for (int i = 0; i < physicsAffectedGameObjects.Length; i++)
@@ -47,4 +47,10 @@ public class PhysicsEngine : CustomBehaviour
         }
         return false;
     }
+
+    public void AddObjet(GameObject gameObject)
+    {
+        physicsDictionary.Add(gameObject,gameObject.GetComponent<CustomPhysicsNuestro>());
+    }
+    
 }
