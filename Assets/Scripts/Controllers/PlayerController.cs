@@ -30,6 +30,7 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     }
     protected override void CustomUpdate()
     {
+        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         InputPlayer = Input.GetAxis("Horizontal");
     }
     protected override void CustomFixedUpdate()
@@ -43,7 +44,6 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
 
     protected override void CustomLateUpdate()
     {
-        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         DetectCollision(colliders);
     }
 
