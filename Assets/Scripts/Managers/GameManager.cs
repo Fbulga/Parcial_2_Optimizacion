@@ -7,6 +7,7 @@ public class GameManager : CustomBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Action OnBrickDestroyed;
+    public Action OnBrickCreated;
     [SerializeField] private int points;
     [SerializeField] private int BricksRemaining;
     [SerializeField] private int Health;
@@ -30,11 +31,13 @@ public class GameManager : CustomBehaviour
     private void OnEnable()
     {
         OnBrickDestroyed += PointsUp;
+        OnBrickCreated += AddBrick;
     }
 
     private void OnDisable()
     {
         OnBrickDestroyed -= PointsUp;
+        OnBrickCreated -= AddBrick;
     }
     
 

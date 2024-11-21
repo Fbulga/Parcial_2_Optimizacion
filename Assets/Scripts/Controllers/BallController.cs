@@ -83,7 +83,6 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
                             newVec = newVec.normalized * data.MaxSpeed;
                             customPhysicsNuestro.velocity = new Vector3(newVec.x, newVec.y, 0);
                         }
-                        
                     }
                 }
             }

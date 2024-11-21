@@ -24,7 +24,7 @@ namespace DefaultNamespace
 
         protected override void CustomStart()
         {
-            GameManager.Instance.AddBrick();
+            GameManager.Instance.OnBrickCreated?.Invoke();
         }
     }
 }

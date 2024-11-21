@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2436742683690318643}
   - component: {fileID: 4241541374154683760}
   - component: {fileID: 1405250458518224824}
+  - component: {fileID: -4418179609713938092}
   m_Layer: 0
   m_Name: MoreBallsPowerUp
   m_TagString: Untagged
@@ -118,3 +119,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b06cc84064614bb5b7c059801979d0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customPhysicsNuestro: {fileID: -4418179609713938092}
+  data: {fileID: 11400000, guid: 858d9e8a7c441324ab23be917d547d02, type: 2}
+  sphereCollider: {fileID: 4241541374154683760}
+--- !u!114 &-4418179609713938092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3803376101722210547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9dd1b5a9d60b2b4bbca0ea4ad861bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  accelerationApplied: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: -4, z: 0}
+  frictionCoefficient: 1

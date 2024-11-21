@@ -26,11 +26,11 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     }
     protected override void CustomUpdate()
     {
-        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         InputPlayer = Input.GetAxis("Horizontal");
     }
     protected override void CustomFixedUpdate()
     {
+        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
         if (GameManager.Instance.ballOnBoard && Input.GetKey(KeyCode.Space))
         { 
             ShootBall();
@@ -101,10 +101,6 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
                         transform.position.z
                     );
                 }
-            }
-            else if (collider is SphereCollider)
-            {
-                if(collider.TryGetComponent<IPowerUp>(out IPowerUp powerUp)) powerUp.UsePowerUp();
             }
         }
     }

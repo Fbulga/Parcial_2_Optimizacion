@@ -10,9 +10,9 @@ namespace DefaultNamespace
     {
         [SerializeField] private GameObject[] powerUpPrefabs; 
         [SerializeField] private PowerUpType[] powerUpTypes; 
+        [SerializeField] private PhysicsEngine physicsEngine;
         private Dictionary<PowerUpType, GameObject> powerUpDictionary; 
         private Dictionary<PowerUpType, Queue<GameObject>> pool; 
-
         public static PowerUpPool Instance { get; private set; }
 
         private void Awake()
@@ -50,6 +50,7 @@ namespace DefaultNamespace
             }
             
             var newPowerUp = Instantiate(powerUpDictionary[type]);
+            physicsEngine.AddObjet(newPowerUp);
             return newPowerUp;
         }
 
