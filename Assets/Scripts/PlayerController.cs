@@ -22,7 +22,6 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     
     protected override void CustomStart()
     {
-        Debug.Log("PlayerController");
         playerCollider = gameObject.GetComponent<BoxCollider>();
         customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
         colliders = new Collider[4];
@@ -92,24 +91,24 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         {
             if (collider is BoxCollider)
             {
-                //if(collider.TryGetComponent<IPowerUp>(out IPowerUp powerUp)) powerUp.UsePowerUp();
                 if (collider.gameObject != gameObject && customPhysicsNuestro.RectangleCollision(playerCollider,collider))
                 {
                     customPhysicsNuestro.velocity = Vector3.zero;
                     
-                    // Calcula la dirección de la colisión
                     float directionX = Mathf.Sign(transform.position.x - collider.transform.position.x);
-
-                    // Calcula la distancia de separación horizontalmente, tomando en cuenta la mitad del ancho de cada colisionador
+                    
                     float distanceToMove = playerCollider.bounds.extents.x + collider.bounds.extents.x;
-
-                    // Ajusta la posición en el borde de colisión, tomando en cuenta la mitad del ancho o alto en la dirección de la colisión
+                    
                     transform.position = new Vector3(
                         collider.transform.position.x + directionX * distanceToMove,
                         transform.position.y,
                         transform.position.z
                     );
                 }
+            }
+            else if (collider is SphereCollider)
+            {
+                if(collider.TryGetComponent<IPowerUp>(out IPowerUp powerUp)) powerUp.UsePowerUp();
             }
         }
     }

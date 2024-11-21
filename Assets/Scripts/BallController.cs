@@ -15,23 +15,19 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
     private Collider[] colliders = new Collider[10];
     private bool a = true;
 
-    private SphereCollider sphereCollider;
+    private SphereCollider sphereCollider = null;
     public float MaxSpeed => maxSpeed;
 
     protected override void CustomStart()
     {
         customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
         sphereCollider = GetComponent<SphereCollider>();
-        
     }
     
     protected override void CustomFixedUpdate()
     {
         Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
-        if (!GameManager.Instance.ballOnBoard)
-        {
-            CheckCollisions();
-        }
+        CheckCollisions();
     }
 
     public void ReUseMe()
@@ -42,12 +38,14 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
 
     public void ImpulseMe()
     {
+        if (sphereCollider is null)CustomStart();
         transform.SetParent(null);
+        customPhysicsNuestro.velocity = Vector3.zero;
         customPhysicsNuestro.ApplyImpulse(new Vector3(0,1,0) * maxSpeed);
     }
     private void Deactivate()
     {
-        gameObject.SetActive(false);
+        BallPool.Instance.ReturnBall(this);
         GameManager.Instance.ActiveBallsDown();
     }
     

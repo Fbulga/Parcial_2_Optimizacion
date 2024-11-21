@@ -6,13 +6,14 @@ using UnityEngine;
 public class PhysicsEngine : CustomBehaviour
 {
     [SerializeField] private GameObject[] physicsAffectedGameObjects;
-
+    [SerializeField] private List<GameObject> physicsAffectedObjectsForView;
     private Dictionary<int, GameObject> gameObjectsDictionary = new Dictionary<int, GameObject>();
     private Dictionary<GameObject, CustomPhysicsNuestro> physicsDictionary = new Dictionary<GameObject, CustomPhysicsNuestro>();
     protected override void CustomStart()
     {
         for (int i = 0; i < physicsAffectedGameObjects.Length; i++)
         {
+            physicsAffectedObjectsForView.Add(physicsAffectedGameObjects[i]);
             if (DoesPhysicsApply(physicsAffectedGameObjects[i]))
             {
                 physicsDictionary.Add(physicsAffectedGameObjects[i],physicsAffectedGameObjects[i].GetComponent<CustomPhysicsNuestro>());
@@ -51,6 +52,7 @@ public class PhysicsEngine : CustomBehaviour
     public void AddObjet(GameObject gameObject)
     {
         physicsDictionary.Add(gameObject,gameObject.GetComponent<CustomPhysicsNuestro>());
+        physicsAffectedObjectsForView.Add(gameObject);
     }
     
 }

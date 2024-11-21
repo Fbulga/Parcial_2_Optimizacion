@@ -1,52 +1,57 @@
-// using System.Collections.Generic;
-// using UnityEngine;
-//
-// namespace DefaultNamespace
-// {
-//     public class BallPool : MonoBehaviour
-//     {
-//         [SerializeField] private GameObject ballPrefab;
-//         private Queue<GameObject> pool = new Queue<GameObject>();
-//         [SerializeField] private PhysicsEngine physicsEngine;
-//         [SerializeField] private PlayerController player;
-//         
-//         public static BallPool Instance { get; private set; }
-//
-//         private void Awake()
-//         {
-//             if (Instance == null)
-//             {
-//                 Instance = this;
-//             }
-//             else
-//             {
-//                 Destroy(gameObject);
-//                 return;
-//             }
-//         }
-//
-//         public GameObject GetBall()
-//         {
-//             if (pool.Count > 0)
-//             {
-//                 GameObject ball = pool.Dequeue();
-//                 ball.SetActive(true);
-//                 GameManager.Instance.ActiveBallsUp();
-//                 return ball;
-//             }
-//             else
-//             {
-//                 var ball =Instantiate(ballPrefab, player.ballPos.position, Quaternion.identity, player.transform);
-//                 GameManager.Instance.ActiveBallsUp();
-//                 physicsEngine.AddObjet(ball);
-//                 return ball;
-//             }
-//         }
-//
-//         public void ReturnBall(GameObject ball)
-//         {
-//             ball.SetActive(false);
-//             pool.Enqueue(ball);
-//         }
-//     }
-// }
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace DefaultNamespace
+{
+    public class BallPool : MonoBehaviour
+    {
+        [SerializeField] private GameObject ballPrefab;
+        private Queue<BallController> pool = new Queue<BallController>();
+        [SerializeField] private PhysicsEngine physicsEngine;
+        [SerializeField] private PlayerController player;
+        [SerializeField] private BallController playerBall;
+        
+        public static BallPool Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
+        public BallController GetBall()
+        {
+            if (pool.Count > 0)
+            {
+                BallController ball = pool.Dequeue();
+                ball.transform.position = player.ballPos.position;
+                ball.transform.SetParent(player.transform);
+                ball.gameObject.SetActive(true);
+                GameManager.Instance.ActiveBallsUp();
+                return ball;
+            }
+            else
+            {
+                var ball =Instantiate(ballPrefab, player.ballPos.position, Quaternion.identity, player.transform);
+                ball.TryGetComponent<BallController>(out BallController ballController);
+                GameManager.Instance.ActiveBallsUp();
+                physicsEngine.AddObjet(ball);
+                return ballController;
+            }
+        }
+
+        public void ReturnBall(BallController ball)
+        {
+            ball.gameObject.SetActive(false);
+            if (ball == playerBall) return;
+            pool.Enqueue(ball);
+        }
+    }
+}
