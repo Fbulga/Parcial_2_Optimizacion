@@ -5,28 +5,24 @@ using UnityEngine;
 
 public class PlayerController : CustomBehaviour, IPhysics, IRectangle
 {
-
-    [SerializeField] private float acceleration;
-    [SerializeField] private float limits;
-    [SerializeField] private BallController ball;
-    [SerializeField] private float detectionRadius;
     public Transform ballPos;
+    [SerializeField] private BallController ball;
+    [SerializeField] private CustomPhysicsNuestro customPhysicsNuestro;
+    [SerializeField] private Collider playerCollider;
+    [SerializeField] private CustomPhysicsNuestro customPhysicsNuestroBall;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float detectionRadius;
     
-    private CustomPhysicsNuestro customPhysicsNuestroBall;
-    private bool a;
+    private bool firstImpulse;
     private float InputPlayer;
     private Collider[] colliders = new Collider[8];
-    private CustomPhysicsNuestro customPhysicsNuestro;
-    private Collider playerCollider;
+
     public Vector3 Velocity => customPhysicsNuestro.velocity;
     
     protected override void CustomStart()
     {
-        playerCollider = gameObject.GetComponent<BoxCollider>();
-        customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
         colliders = new Collider[4];
         GameManager.Instance.SetPLayerInstance(this);
-        customPhysicsNuestroBall = ball.GetComponent<CustomPhysicsNuestro>();
     }
     protected override void CustomUpdate()
     {
@@ -52,16 +48,16 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     {
         if (InputPlayer != 0)
         {
-            if (a)
+            if (firstImpulse)
             {
                 customPhysicsNuestro.ApplyImpulse(new Vector3(InputPlayer,0,0)*(acceleration * 1.5f));
-                a = false;
+                firstImpulse = false;
             }
             customPhysicsNuestro.ApplyForce(new Vector3(InputPlayer,0,0)*acceleration);
         }
         else
         {
-            a = true;
+            firstImpulse = true;
         }
         customPhysicsNuestro.ApplyFriction();
     }
@@ -79,7 +75,7 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
     }
     public void Parent()
     {
-        ball.ReUseMe();
+        ball.ReUseMe(ballPos.position);
         ball.gameObject.SetActive(true);
         ball.transform.SetParent(gameObject.transform);
         GameManager.Instance.ActiveBallsUp();

@@ -163,11 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfe6427d8ebf024da1cfd179391bea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 200
-  limits: 5.25
-  ball: {fileID: 1347409683444861748}
-  detectionRadius: 1.78
   ballPos: {fileID: 1487655483915413546}
+  ball: {fileID: 1347409683444861748}
+  customPhysicsNuestro: {fileID: 44495597252949384}
+  playerCollider: {fileID: 948203609069225066}
+  customPhysicsNuestroBall: {fileID: 4562366711367926282}
+  acceleration: 200
+  detectionRadius: 1.78
 --- !u!114 &44495597252949384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,5 +278,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eff51a3578cf2b48a9a13d280cbec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4562366711367926282 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4261964840345471876, guid: 84768240db6c81e47b798f15bc2afae1, type: 3}
+  m_PrefabInstance: {fileID: 321235692285331854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9dd1b5a9d60b2b4bbca0ea4ad861bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

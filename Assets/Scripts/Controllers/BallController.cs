@@ -1,47 +1,36 @@
 using System;
 using DefaultNamespace;
+using DefaultNamespace.Scriptables;
 using Interfaces;
 using UnityEngine;
 
 public class BallController : CustomBehaviour, IPhysics, ISphere
 {
-    private CustomPhysicsNuestro customPhysicsNuestro;
-
-    [SerializeField] private float radius;
-    [SerializeField] private float playerInfluenceFactor;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private Transform ballPoint;
-
     private Collider[] colliders = new Collider[10];
-    private bool a = true;
-
-    private SphereCollider sphereCollider = null;
-    public float MaxSpeed => maxSpeed;
-
-    protected override void CustomStart()
-    {
-        customPhysicsNuestro = gameObject.GetComponent<CustomPhysicsNuestro>();
-        sphereCollider = GetComponent<SphereCollider>();
-    }
+    
+    [SerializeField] private BallData data;
+    [SerializeField] private CustomPhysicsNuestro customPhysicsNuestro;
+    [SerializeField] private SphereCollider sphereCollider;
+    
+    public float MaxSpeed => data.MaxSpeed;
     
     protected override void CustomFixedUpdate()
     {
-        Physics.OverlapSphereNonAlloc(transform.position, radius, colliders);
+        Physics.OverlapSphereNonAlloc(transform.position, data.Radius, colliders);
         CheckCollisions();
     }
 
-    public void ReUseMe()
+    public void ReUseMe(Vector3 position)
     {        
-        transform.position = ballPoint.position;
+        transform.position = position;
         customPhysicsNuestro.velocity = Vector3.zero;
     }
 
     public void ImpulseMe()
     {
-        if (sphereCollider is null)CustomStart();
         transform.SetParent(null);
         customPhysicsNuestro.velocity = Vector3.zero;
-        customPhysicsNuestro.ApplyImpulse(new Vector3(0,1,0) * maxSpeed);
+        customPhysicsNuestro.ApplyImpulse(new Vector3(0,1,0) * data.MaxSpeed);
     }
     private void Deactivate()
     {
@@ -87,11 +76,11 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
                         if (normal.y != 0) // Colisión vertical
                         {
                             Vector2 newVec = new Vector2(
-                                customPhysicsNuestro.velocity.x + playerVelocity * playerInfluenceFactor,
+                                customPhysicsNuestro.velocity.x + playerVelocity * data.PlayerInfluenceFactor,
                                 customPhysicsNuestro.velocity.y
                             );
 
-                            newVec = newVec.normalized * maxSpeed;
+                            newVec = newVec.normalized * data.MaxSpeed;
                             customPhysicsNuestro.velocity = new Vector3(newVec.x, newVec.y, 0);
                         }
                         

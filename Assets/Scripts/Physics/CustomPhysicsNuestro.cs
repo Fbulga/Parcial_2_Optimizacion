@@ -5,7 +5,7 @@ public class CustomPhysicsNuestro : MonoBehaviour
 {
     [SerializeField] private float mass;
     public Vector3 accelerationApplied;
-    [SerializeField] public Vector3 velocity;
+    public Vector3 velocity;
     [SerializeField] private float frictionCoefficient;
     
     public void ApplyForce(Vector3 force)

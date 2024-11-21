@@ -120,10 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eff51a3578cf2b48a9a13d280cbec54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.25
-  playerInfluenceFactor: 0.5
-  maxSpeed: 9
-  ballPoint: {fileID: 0}
+  data: {fileID: 11400000, guid: d753dbbb9ad204c409d63da3bb8e2a1e, type: 2}
+  customPhysicsNuestro: {fileID: 4261964840345471876}
+  sphereCollider: {fileID: 3473716678562664039}
 --- !u!114 &4261964840345471876
 MonoBehaviour:
   m_ObjectHideFlags: 0
