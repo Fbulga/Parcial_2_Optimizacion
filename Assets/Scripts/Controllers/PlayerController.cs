@@ -78,8 +78,6 @@ public class PlayerController : CustomBehaviour, IPhysics, IRectangle
         ball.ReUseMe(ballPos.position);
         ball.gameObject.SetActive(true);
         ball.transform.SetParent(gameObject.transform);
-        GameManager.Instance.ActiveBallsUp();
-        
     }
     private void DetectCollision(Collider[] colliders)
     {

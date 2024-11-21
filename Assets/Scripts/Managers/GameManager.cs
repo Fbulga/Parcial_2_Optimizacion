@@ -8,6 +8,9 @@ public class GameManager : CustomBehaviour
     public static GameManager Instance { get; private set; }
     public Action OnBrickDestroyed;
     public Action OnBrickCreated;
+    public Action OnBallsUp;
+    public Action OnBallsDown;
+    public Action OnRestart;
     [SerializeField] private int points;
     [SerializeField] private int BricksRemaining;
     [SerializeField] private int Health;
@@ -32,12 +35,18 @@ public class GameManager : CustomBehaviour
     {
         OnBrickDestroyed += PointsUp;
         OnBrickCreated += AddBrick;
+        OnRestart += Restart;
+        OnBallsUp += ActiveBallsUp;
+        OnBallsDown += ActiveBallsDown;
     }
 
     private void OnDisable()
     {
         OnBrickDestroyed -= PointsUp;
         OnBrickCreated -= AddBrick;
+        OnRestart -= Restart;
+        OnBallsUp -= ActiveBallsUp;
+        OnBallsDown -= ActiveBallsDown;
     }
     
 
@@ -51,17 +60,25 @@ public class GameManager : CustomBehaviour
         }
     }
 
-    public void AddBrick()
+    private void AddBrick()
     {
         BricksRemaining++;
+    }
+    private void Restart()
+    {
+        points = 0;
+        BricksRemaining = 0;
+        Health = 3;
+        activeBalls = 1;
     }
     public void HealthUp()
     {
         Health++;
     }
-    public void HealthDown()
+    private void HealthDown()
     {
         Health--;
+        ActiveBallsUp();
         player.Parent();
         ballOnBoard = true;
         GameOver();
@@ -71,11 +88,11 @@ public class GameManager : CustomBehaviour
     {
         player = _player;
     }
-    public void ActiveBallsUp()
+    private void ActiveBallsUp()
     {
         activeBalls++;
     }
-    public void ActiveBallsDown()
+    private void ActiveBallsDown()
     {
         activeBalls--;
         if (activeBalls <= 0)

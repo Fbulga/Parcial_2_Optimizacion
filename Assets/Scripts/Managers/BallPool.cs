@@ -34,14 +34,14 @@ namespace DefaultNamespace
                 ball.transform.position = player.ballPos.position;
                 ball.transform.SetParent(player.transform);
                 ball.gameObject.SetActive(true);
-                GameManager.Instance.ActiveBallsUp();
+                GameManager.Instance.OnBallsUp?.Invoke();
                 return ball;
             }
             else
             {
                 var ball =Instantiate(ballPrefab, player.ballPos.position, Quaternion.identity, player.transform);
                 ball.TryGetComponent<BallController>(out BallController ballController);
-                GameManager.Instance.ActiveBallsUp();
+                GameManager.Instance.OnBallsUp?.Invoke();
                 physicsEngine.AddObjet(ball);
                 return ballController;
             }

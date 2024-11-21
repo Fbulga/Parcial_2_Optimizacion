@@ -6,10 +6,13 @@ namespace DefaultNamespace
     public class Bricks: CustomBehaviour, IDestructible
     {
         [SerializeField] private int health = 3;
+        private bool destroyed = false;
         public void DestroyMe()
         {
+            if (destroyed) return;
             PowerUpPool.Instance.TryDropPowerUp(transform.position);
             GameManager.Instance.OnBrickDestroyed?.Invoke();
+            destroyed = true;
             Destroy(gameObject);
         }
 

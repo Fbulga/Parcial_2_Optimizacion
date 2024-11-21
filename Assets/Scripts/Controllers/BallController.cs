@@ -35,7 +35,7 @@ public class BallController : CustomBehaviour, IPhysics, ISphere
     private void Deactivate()
     {
         BallPool.Instance.ReturnBall(this);
-        GameManager.Instance.ActiveBallsDown();
+        GameManager.Instance.OnBallsDown?.Invoke();
     }
     
     void CheckCollisions()
