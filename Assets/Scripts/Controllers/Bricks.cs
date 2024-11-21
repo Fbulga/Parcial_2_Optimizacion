@@ -8,6 +8,7 @@ namespace DefaultNamespace
         [SerializeField] private int health = 3;
         public void DestroyMe()
         {
+            PowerUpPool.Instance.TryDropPowerUp(transform.position);
             GameManager.Instance.OnBrickDestroyed?.Invoke();
             Destroy(gameObject);
         }
