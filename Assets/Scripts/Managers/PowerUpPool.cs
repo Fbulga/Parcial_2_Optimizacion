@@ -11,6 +11,7 @@ namespace DefaultNamespace
         [SerializeField] private GameObject[] powerUpPrefabs; 
         [SerializeField] private PowerUpType[] powerUpTypes; 
         [SerializeField] private PhysicsEngine physicsEngine;
+        [SerializeField, Range(0f, 1f)] private float powerUpChance;
         private Dictionary<PowerUpType, GameObject> powerUpDictionary; 
         private Dictionary<PowerUpType, Queue<GameObject>> pool; 
         public static PowerUpPool Instance { get; private set; }
@@ -62,7 +63,7 @@ namespace DefaultNamespace
 
         public void TryDropPowerUp(Vector3 position)
         {
-            if (Random.value > 0.5f)
+            if (Random.value > powerUpChance)
             {
                 var randomType = powerUpTypes[Random.Range(0, powerUpTypes.Length)];
                 var powerUp = GetPowerUp(randomType);

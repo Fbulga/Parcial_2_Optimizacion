@@ -10,6 +10,7 @@ public class GameManager : CustomBehaviour
     public Action OnBrickCreated;
     public Action OnBallsUp;
     public Action OnBallsDown;
+    public Action OnHealthUp;
     public Action OnRestart;
     [SerializeField] private int points;
     [SerializeField] private int BricksRemaining;
@@ -17,7 +18,7 @@ public class GameManager : CustomBehaviour
     [SerializeField] private int activeBalls;
     [SerializeField] private PlayerController player;
     public bool ballOnBoard;
-    
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -38,6 +39,7 @@ public class GameManager : CustomBehaviour
         OnRestart += Restart;
         OnBallsUp += ActiveBallsUp;
         OnBallsDown += ActiveBallsDown;
+        OnHealthUp += HealthUp;
     }
 
     private void OnDisable()
@@ -47,8 +49,9 @@ public class GameManager : CustomBehaviour
         OnRestart -= Restart;
         OnBallsUp -= ActiveBallsUp;
         OnBallsDown -= ActiveBallsDown;
+        OnHealthUp -= HealthUp;
     }
-    
+
 
     private void PointsUp()
     {
@@ -64,6 +67,7 @@ public class GameManager : CustomBehaviour
     {
         BricksRemaining++;
     }
+
     private void Restart()
     {
         points = 0;
@@ -71,10 +75,12 @@ public class GameManager : CustomBehaviour
         Health = 3;
         activeBalls = 1;
     }
-    public void HealthUp()
+
+    private void HealthUp()
     {
         Health++;
     }
+
     private void HealthDown()
     {
         Health--;
@@ -83,15 +89,17 @@ public class GameManager : CustomBehaviour
         ballOnBoard = true;
         GameOver();
     }
-    
+
     public void SetPLayerInstance(PlayerController _player)
     {
         player = _player;
     }
+
     private void ActiveBallsUp()
     {
         activeBalls++;
     }
+
     private void ActiveBallsDown()
     {
         activeBalls--;
@@ -105,5 +113,4 @@ public class GameManager : CustomBehaviour
     {
         if (Health <= 0) Debug.Log("Game Over, perdiste");
     }
-    
 }
