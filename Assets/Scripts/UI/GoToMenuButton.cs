@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace UI
 {
-    public class ExitButton : MonoBehaviour
+    public class GoToMenuButton : MonoBehaviour
     {
         public void GoToMenu()
         {
