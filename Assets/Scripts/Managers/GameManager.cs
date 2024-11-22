@@ -105,6 +105,7 @@ namespace Managers
 
         private void Restart()
         {
+            ballOnBoard = true;
             points = 0;
             BricksRemaining = 0;
             Health = 3;

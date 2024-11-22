@@ -1,3 +1,4 @@
+using Managers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,7 @@ namespace UI
         public void GoToGame()
         {
             SceneManager.LoadScene(1);
+            GameManager.Instance.OnRestart?.Invoke();
         }
 
         public void ExitGame()

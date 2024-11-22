@@ -8,7 +8,6 @@ namespace UI
     {
         public void GoToMenu()
         {
-            GameManager.Instance.OnRestart?.Invoke();
             SceneManager.LoadScene(0);
         }
 

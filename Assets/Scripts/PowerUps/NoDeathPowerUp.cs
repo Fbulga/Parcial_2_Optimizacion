@@ -10,7 +10,7 @@ namespace PowerUps
         {
             GameManager.Instance.StartDeadlyTimer();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
-            Debug.Log("NoDeathPowerUp");
+            AudioManager.Instance.PlaySound(data.Clip);
         }
     }
 }

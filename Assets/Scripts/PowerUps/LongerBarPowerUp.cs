@@ -10,7 +10,7 @@ namespace PowerUps
         {
             GameManager.Instance.SetLongerPLayer();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
-            Debug.Log("LongerBarPowerUp");
+            AudioManager.Instance.PlaySound(data.Clip);
         }
     }
 }

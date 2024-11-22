@@ -6,7 +6,9 @@ namespace Scriptables
     public class PowerUpData : ScriptableObject
     {
         [SerializeField] private float radius;
+        [SerializeField] private AudioClip clip;
         
         public float Radius => radius;
+        public AudioClip Clip => clip;
     }
 }

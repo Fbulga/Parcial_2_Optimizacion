@@ -10,7 +10,7 @@ namespace PowerUps
         {
             GameManager.Instance.ChangeBallsMaxSpeed();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
-            Debug.Log("SlowerBallsPowerUp");
+            AudioManager.Instance.PlaySound(data.Clip);
         }
     }
 }

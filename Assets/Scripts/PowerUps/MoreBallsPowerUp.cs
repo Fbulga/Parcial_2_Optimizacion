@@ -13,7 +13,7 @@ namespace PowerUps
             ball = BallPool.Instance.GetBall();
             ball.ImpulseMe(-0.5f);
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
-            Debug.Log("MoreBallsPowerUp");
+            AudioManager.Instance.PlaySound(data.Clip);
         }
     }
 }

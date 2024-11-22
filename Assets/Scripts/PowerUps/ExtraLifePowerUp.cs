@@ -10,7 +10,7 @@ namespace PowerUps
         {
             GameManager.Instance.OnHealthUp?.Invoke();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
-            Debug.Log("ExtraLifePowerUp");
+            AudioManager.Instance.PlaySound(data.Clip);
         }
     }
 }
