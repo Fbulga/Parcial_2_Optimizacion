@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class GameManager : CustomBehaviour
+    public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
         public Action OnBrickDestroyed;
@@ -18,6 +18,7 @@ namespace Managers
         [SerializeField] private int Health;
         [SerializeField] private int activeBalls;
         [SerializeField] private PlayerController player;
+        [SerializeField] private DeadZone deadZone;
         public bool ballOnBoard;
 
         private void Awake()
@@ -68,6 +69,10 @@ namespace Managers
         {
             BricksRemaining++;
         }
+        public void StartDeadlyTimer()
+        {
+            deadZone.RunDeadlyTimer();
+        }
 
         private void Restart()
         {
@@ -84,16 +89,24 @@ namespace Managers
 
         private void HealthDown()
         {
+            ballOnBoard = true;
             Health--;
             ActiveBallsUp();
             player.Parent();
-            ballOnBoard = true;
             GameOver();
         }
 
         public void SetPLayerInstance(PlayerController _player)
         {
             player = _player;
+        }
+        public void SetLongerPLayer()
+        {
+            player.LongerBar(ballOnBoard);
+        }
+        public void SetDeadZone(DeadZone _zone)
+        {
+            deadZone = _zone;
         }
 
         private void ActiveBallsUp()

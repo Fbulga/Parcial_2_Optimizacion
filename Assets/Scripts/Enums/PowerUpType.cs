@@ -2,6 +2,9 @@ namespace Enums
 {
     public enum PowerUpType
     {
-        MoreBalls
+        MoreBalls,
+        ExtraLife,
+        NoDeath,
+        LongerBar
     }
 }

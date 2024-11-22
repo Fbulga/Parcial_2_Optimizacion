@@ -14,7 +14,10 @@ namespace Controllers
         [SerializeField] private CustomPhysicsNuestro customPhysicsNuestroBall;
         [SerializeField] private float acceleration;
         [SerializeField] private float detectionRadius;
+        [SerializeField] private float longerBarTime;
     
+        private float timer;
+        private bool isLongerBar;
         private bool firstImpulse;
         private float InputPlayer;
         private Collider[] colliders = new Collider[8];
@@ -29,7 +32,11 @@ namespace Controllers
         protected override void CustomUpdate()
         {
             InputPlayer = Input.GetAxis("Horizontal");
+            MakeBarNormalAfterTime();
         }
+
+        
+
         protected override void CustomFixedUpdate()
         {
             Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
@@ -66,20 +73,33 @@ namespace Controllers
     
         private void ShootBall()
         {
-            Unparent();
+            ball.transform.SetParent(null);
             customPhysicsNuestroBall.ApplyImpulse(new Vector3(0,1,0) * ball.MaxSpeed);
             GameManager.Instance.ballOnBoard = false;
         }
-    
-        private void Unparent()
-        {
-            ball.transform.SetParent(null);
-        }
+        
         public void Parent()
         {
             ball.ReUseMe(ballPos.position);
             ball.gameObject.SetActive(true);
-            ball.transform.SetParent(gameObject.transform);
+            ball.transform.SetParent(transform);
+        }
+        public void LongerBar(bool isBallOn)
+        {
+            if (isBallOn)
+            {
+                ball.transform.SetParent(null);
+                isLongerBar = true;
+                transform.localScale = new Vector3(1.5f,1,1);
+                ball.transform.SetParent(transform);
+            }
+            else
+            {
+                isLongerBar = true;
+                transform.localScale = new Vector3(1.5f,1,1);
+            }
+            
+
         }
         private void DetectCollision(Collider[] colliders)
         {
@@ -100,6 +120,30 @@ namespace Controllers
                             transform.position.y,
                             transform.position.z
                         );
+                    }
+                }
+            }
+        }
+        private void MakeBarNormalAfterTime()
+        {
+            if (isLongerBar)
+            {
+                timer += Time.deltaTime;
+                if (timer >= longerBarTime)
+                {
+                    isLongerBar = false;
+                    timer = 0f;
+                    if (GameManager.Instance.ballOnBoard)
+                    {
+                        ball.transform.SetParent(null);
+                        isLongerBar = true;
+                        transform.localScale = new Vector3(1,1,1);
+                        ball.transform.SetParent(transform);
+                    }
+                    else
+                    {
+                        isLongerBar = true;
+                        transform.localScale = new Vector3(1,1,1);
                     }
                 }
             }

@@ -144,7 +144,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.38, y: -3.13, z: -0.19230843}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1272586010848777242}
   - {fileID: 1487655483915413546}
@@ -170,6 +170,7 @@ MonoBehaviour:
   customPhysicsNuestroBall: {fileID: 4562366711367926282}
   acceleration: 200
   detectionRadius: 1.78
+  longerBarTime: 5
 --- !u!114 &44495597252949384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,8 +206,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5092425, y: 0.26084208, z: 0.8185032}
-  m_Center: {x: 0, y: -0.3, z: 0}
+  m_Size: {x: 3.5014389, y: 0.26194, z: 0.8185032}
+  m_Center: {x: 0.0039018393, y: -0.14141893, z: 0}
 --- !u!1001 &321235692285331854
 PrefabInstance:
   m_ObjectHideFlags: 0

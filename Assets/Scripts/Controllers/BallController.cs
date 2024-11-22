@@ -56,8 +56,11 @@ namespace Controllers
                             collider.TryGetComponent<DeadZone>(out DeadZone deadZone);
                             if (deadZone != null)
                             {
-                                Deactivate();
-                                return;
+                                if (deadZone.IsDeadly)
+                                {
+                                    Deactivate();
+                                    return;
+                                }
                             }
                         
                             collider.TryGetComponent<PlayerController>(out PlayerController player);

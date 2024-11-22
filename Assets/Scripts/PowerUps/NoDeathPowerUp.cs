@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace PowerUps
 {
-    public class MoreBallsPowerUp : PowerUpBaseController
+    public class NoDeathPowerUp : PowerUpBaseController
     {
         protected override void UsePowerUp()
         {
-            var ball = BallPool.Instance.GetBall();
-            ball.ImpulseMe();
+            GameManager.Instance.StartDeadlyTimer();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
-            Debug.Log("MoreBallsPowerUp");
+            Debug.Log("NoDeathPowerUp");
         }
     }
 }

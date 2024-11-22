@@ -7802,7 +7802,7 @@ GameObject:
   - component: {fileID: 1758281479}
   - component: {fileID: 1758281482}
   m_Layer: 0
-  m_Name: Buttom
+  m_Name: DeadZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7906,6 +7906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19fe64d92e7542d4962139055a6a23d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsDeadly: 1
+  deadlyTime: 5
 --- !u!4 &1760259813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2699979891115698905, guid: ad9b65ba88757bc4391b5a34ce6689d9, type: 3}
@@ -8786,7 +8788,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpPrefabs:
   - {fileID: 3803376101722210547, guid: f884a9dedc48ba940ab9b37ab7a1a6c5, type: 3}
-  powerUpTypes: 00000000
+  - {fileID: 3803376101722210547, guid: 8ec6978d019fdfa43a0bb669d6d53fb8, type: 3}
+  - {fileID: 3803376101722210547, guid: 503fa6303e03f67428ecf7dfe16c2fdc, type: 3}
+  - {fileID: 3803376101722210547, guid: 5d1595bafc5522e4c9f23528282ec995, type: 3}
+  powerUpTypes: 00000000010000000300000002000000
   physicsEngine: {fileID: 528125686}
   powerUpChance: 0.175
 --- !u!4 &1938472733
