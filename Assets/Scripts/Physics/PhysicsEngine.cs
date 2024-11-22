@@ -7,7 +7,6 @@ namespace PhysicsOur
     public class PhysicsEngine : CustomBehaviour
     {
         [SerializeField] private GameObject[] physicsAffectedGameObjects;
-        private Dictionary<int, GameObject> gameObjectsDictionary = new Dictionary<int, GameObject>();
 
         private Dictionary<GameObject, CustomPhysicsNuestro> physicsDictionary =
             new Dictionary<GameObject, CustomPhysicsNuestro>();

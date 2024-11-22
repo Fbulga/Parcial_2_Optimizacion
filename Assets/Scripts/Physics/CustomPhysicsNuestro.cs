@@ -100,13 +100,5 @@ namespace PhysicsOur
                 collisionNormal = collisionNormal
             };
         }
-
-
-        public bool SphereCollision(SphereCollider sphere1, SphereCollider sphere2)
-        {
-            return Vector2.Distance(sphere1.transform.position, sphere2.transform.position) <
-                   sphere1.radius * sphere1.transform.lossyScale.x + sphere2.radius * sphere2.transform.lossyScale.x;
-        }
-
     }
 }
