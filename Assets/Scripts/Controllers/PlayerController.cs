@@ -40,9 +40,6 @@ namespace Controllers
             MakeBarNormalAfterTime();
             MakeBallSpeedNormalAfterTime();
         }
-
-        
-
         protected override void CustomFixedUpdate()
         {
             Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders);
