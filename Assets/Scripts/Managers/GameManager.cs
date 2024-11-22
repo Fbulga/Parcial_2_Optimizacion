@@ -1,6 +1,7 @@
 using System;
 using Controllers;
 using Scriptables;
+using TMPro;
 using UnityEngine;
 
 namespace Managers
@@ -16,13 +17,15 @@ namespace Managers
         public Action OnRestart;
         private float ballBaseSpeed;
         
-        [SerializeField] private int points;
+        public int points;
         [SerializeField] private int BricksRemaining;
         [SerializeField] private int Health;
         [SerializeField] private int activeBalls;
         [SerializeField] private PlayerController player;
         [SerializeField] private DeadZone deadZone;
         [SerializeField] private BallData ballData;
+        [SerializeField] private TextMeshProUGUI pointsText;
+        [SerializeField] private TextMeshProUGUI healthText;
         
         public bool ballOnBoard;
 
@@ -59,11 +62,12 @@ namespace Managers
             OnBallsDown -= ActiveBallsDown;
             OnHealthUp -= HealthUp;
         }
-
+        
 
         private void PointsUp()
         {
             points++;
+            UpdatePoints();
             BricksRemaining--;
             if (BricksRemaining <= 0)
             {
@@ -71,6 +75,11 @@ namespace Managers
             }
         }
 
+        void UpdatePoints()
+        {
+                pointsText.text = points.ToString();
+        }
+        
         private void AddBrick()
         {
             BricksRemaining++;
@@ -107,6 +116,7 @@ namespace Managers
         {
             ballOnBoard = true;
             Health--;
+            healthText.text = Health.ToString();
             ActiveBallsUp();
             player.Parent();
             GameOver();
