@@ -28,11 +28,11 @@ namespace Controllers
             customPhysicsNuestro.velocity = Vector3.zero;
         }
 
-        public void ImpulseMe()
+        public void ImpulseMe(float impulse)
         {
             transform.SetParent(null);
             customPhysicsNuestro.velocity = Vector3.zero;
-            customPhysicsNuestro.ApplyImpulse(new Vector3(0,1,0) * data.MaxSpeed);
+            customPhysicsNuestro.ApplyImpulse(new Vector3(impulse,1,0) * data.MaxSpeed);
         }
         private void Deactivate()
         {

@@ -14,7 +14,7 @@ namespace Controllers
             PowerUpPool.Instance.TryDropPowerUp(transform.position);
             GameManager.Instance.OnBrickDestroyed?.Invoke();
             destroyed = true;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         public void TryDestroyMe()
