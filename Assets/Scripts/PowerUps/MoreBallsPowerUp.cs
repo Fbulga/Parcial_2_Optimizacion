@@ -9,7 +9,9 @@ namespace PowerUps
         protected override void UsePowerUp()
         {
             var ball = BallPool.Instance.GetBall();
-            ball.ImpulseMe();
+            ball.ImpulseMe(0.5f);
+            ball = BallPool.Instance.GetBall();
+            ball.ImpulseMe(-0.5f);
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
             Debug.Log("MoreBallsPowerUp");
         }

@@ -15,6 +15,7 @@ namespace Controllers
         [SerializeField] private float acceleration;
         [SerializeField] private float detectionRadius;
         [SerializeField] private float longerBarTime;
+        private float baseDetectionRadius;
     
         private float timer;
         private bool isLongerBar;
@@ -28,6 +29,7 @@ namespace Controllers
         {
             colliders = new Collider[4];
             GameManager.Instance.SetPLayerInstance(this);
+            baseDetectionRadius = detectionRadius;
         }
         protected override void CustomUpdate()
         {
@@ -87,16 +89,16 @@ namespace Controllers
         public void LongerBar(bool isBallOn)
         {
             timer = 0;
+            isLongerBar = true;
+            detectionRadius *= 1.5f;
             if (isBallOn)
             {
                 ball.transform.SetParent(null);
-                isLongerBar = true;
                 transform.localScale = new Vector3(1.5f,1,1);
                 ball.transform.SetParent(transform);
             }
             else
             {
-                isLongerBar = true;
                 transform.localScale = new Vector3(1.5f,1,1);
             }
             
@@ -133,16 +135,15 @@ namespace Controllers
                 if (timer >= longerBarTime)
                 {
                     isLongerBar = false;
+                    detectionRadius = baseDetectionRadius;
                     if (GameManager.Instance.ballOnBoard)
                     {
                         ball.transform.SetParent(null);
-                        isLongerBar = true;
                         transform.localScale = new Vector3(1,1,1);
                         ball.transform.SetParent(transform);
                     }
                     else
                     {
-                        isLongerBar = true;
                         transform.localScale = new Vector3(1,1,1);
                     }
                 }
