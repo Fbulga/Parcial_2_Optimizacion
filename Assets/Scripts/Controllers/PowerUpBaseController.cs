@@ -1,8 +1,10 @@
-using DefaultNamespace.Enums;
-using DefaultNamespace.Scriptables;
+using Enums;
+using Managers;
+using PhysicsOur;
+using Scriptables;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Controllers
 {
     public abstract class PowerUpBaseController : CustomBehaviour
     {

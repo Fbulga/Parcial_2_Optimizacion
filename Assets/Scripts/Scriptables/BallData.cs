@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.Scriptables
+namespace Scriptables
 {
     [CreateAssetMenu(fileName = "BallData",menuName = "Ball/BallData")]
     public class BallData : ScriptableObject

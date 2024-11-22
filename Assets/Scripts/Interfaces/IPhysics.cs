@@ -1,4 +1,7 @@
-    public interface IPhysics
+    namespace Interfaces
     {
+        public interface IPhysics
+        {
         
+        }
     }

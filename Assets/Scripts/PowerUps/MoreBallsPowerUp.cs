@@ -1,4 +1,7 @@
-namespace DefaultNamespace
+using Controllers;
+using Managers;
+
+namespace PowerUps
 {
     public class MoreBallsPowerUp : PowerUpBaseController
     {

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
-using DefaultNamespace.Enums;
-using Interfaces;
+using Enums;
+using PhysicsOur;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Managers
 {
         public class PowerUpPool : MonoBehaviour
     {
@@ -63,7 +62,7 @@ namespace DefaultNamespace
 
         public void TryDropPowerUp(Vector3 position)
         {
-            if (Random.value > powerUpChance)
+            if (Random.value < powerUpChance)
             {
                 var randomType = powerUpTypes[Random.Range(0, powerUpTypes.Length)];
                 var powerUp = GetPowerUp(randomType);

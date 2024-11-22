@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefaultNamespace.UI
+namespace UI
 {
     public class Menu : MonoBehaviour
     {

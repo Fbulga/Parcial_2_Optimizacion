@@ -1,55 +1,64 @@
-using System;
 using System.Collections.Generic;
-using DefaultNamespace;
+using Interfaces;
 using UnityEngine;
 
-public class PhysicsEngine : CustomBehaviour
+namespace PhysicsOur
 {
-    [SerializeField] private GameObject[] physicsAffectedGameObjects;
-    private Dictionary<int, GameObject> gameObjectsDictionary = new Dictionary<int, GameObject>();
-    private Dictionary<GameObject, CustomPhysicsNuestro> physicsDictionary = new Dictionary<GameObject, CustomPhysicsNuestro>();
-    protected override void CustomStart()
+    public class PhysicsEngine : CustomBehaviour
     {
-        for (int i = 0; i < physicsAffectedGameObjects.Length; i++)
+        [SerializeField] private GameObject[] physicsAffectedGameObjects;
+        private Dictionary<int, GameObject> gameObjectsDictionary = new Dictionary<int, GameObject>();
+
+        private Dictionary<GameObject, CustomPhysicsNuestro> physicsDictionary =
+            new Dictionary<GameObject, CustomPhysicsNuestro>();
+
+        protected override void CustomStart()
         {
-            if (DoesPhysicsApply(physicsAffectedGameObjects[i]))
+            for (int i = 0; i < physicsAffectedGameObjects.Length; i++)
             {
-                physicsDictionary.Add(physicsAffectedGameObjects[i],physicsAffectedGameObjects[i].GetComponent<CustomPhysicsNuestro>());
+                if (DoesPhysicsApply(physicsAffectedGameObjects[i]))
+                {
+                    physicsDictionary.Add(physicsAffectedGameObjects[i],
+                        physicsAffectedGameObjects[i].GetComponent<CustomPhysicsNuestro>());
+                }
+
+                physicsAffectedGameObjects[i] = null;
             }
 
-            physicsAffectedGameObjects[i] = null;
         }
 
-    }
-
-    protected override void CustomFixedUpdate()
-    {
-        foreach (var gameObject in physicsDictionary)
+        protected override void CustomFixedUpdate()
         {
-           if(gameObject.Key.activeSelf) CalculatePhysics(gameObject,Time.deltaTime);
+            foreach (var gameObject in physicsDictionary)
+            {
+                if (gameObject.Key.activeSelf) CalculatePhysics(gameObject, Time.deltaTime);
+            }
         }
-    }
 
-    void CalculatePhysics(KeyValuePair<GameObject,CustomPhysicsNuestro> gameObjectPhysics, float time)
-    {
-        gameObjectPhysics.Value.velocity += gameObjectPhysics.Value.accelerationApplied * time;
-        gameObjectPhysics.Key.transform.position += gameObjectPhysics.Value.velocity * time + gameObjectPhysics.Value.accelerationApplied * (time * time * 0.5f);
-        gameObjectPhysics.Value.accelerationApplied = new Vector3(0, 0, 0);
-
-    }
-
-    bool DoesPhysicsApply(GameObject gameObject)
-    {
-        if (gameObject.gameObject.TryGetComponent(out IPhysics physics))
+        void CalculatePhysics(KeyValuePair<GameObject, CustomPhysicsNuestro> gameObjectPhysics, float time)
         {
-            return true;
-        }
-        return false;
-    }
+            gameObjectPhysics.Value.velocity += gameObjectPhysics.Value.accelerationApplied * time;
+            gameObjectPhysics.Key.transform.position += gameObjectPhysics.Value.velocity * time +
+                                                        gameObjectPhysics.Value.accelerationApplied *
+                                                        (time * time * 0.5f);
+            gameObjectPhysics.Value.accelerationApplied = new Vector3(0, 0, 0);
 
-    public void AddObjet(GameObject gameObject)
-    {
-        physicsDictionary.Add(gameObject,gameObject.GetComponent<CustomPhysicsNuestro>());
+        }
+
+        bool DoesPhysicsApply(GameObject gameObject)
+        {
+            if (gameObject.gameObject.TryGetComponent(out IPhysics physics))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void AddObjet(GameObject gameObject)
+        {
+            physicsDictionary.Add(gameObject, gameObject.GetComponent<CustomPhysicsNuestro>());
+        }
+
     }
-    
 }

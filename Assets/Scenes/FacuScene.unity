@@ -8788,7 +8788,7 @@ MonoBehaviour:
   - {fileID: 3803376101722210547, guid: f884a9dedc48ba940ab9b37ab7a1a6c5, type: 3}
   powerUpTypes: 00000000
   physicsEngine: {fileID: 528125686}
-  powerUpChance: 0
+  powerUpChance: 0.175
 --- !u!4 &1938472733
 Transform:
   m_ObjectHideFlags: 0

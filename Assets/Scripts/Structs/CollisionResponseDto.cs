@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.Structs
+namespace Structs
 {
     public struct CollisionResponseDto
     {

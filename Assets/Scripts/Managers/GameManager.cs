@@ -1,116 +1,118 @@
 using System;
-using DefaultNamespace;
+using Controllers;
 using UnityEngine;
 
-
-public class GameManager : CustomBehaviour
+namespace Managers
 {
-    public static GameManager Instance { get; private set; }
-    public Action OnBrickDestroyed;
-    public Action OnBrickCreated;
-    public Action OnBallsUp;
-    public Action OnBallsDown;
-    public Action OnHealthUp;
-    public Action OnRestart;
-    [SerializeField] private int points;
-    [SerializeField] private int BricksRemaining;
-    [SerializeField] private int Health;
-    [SerializeField] private int activeBalls;
-    [SerializeField] private PlayerController player;
-    public bool ballOnBoard;
-
-    private void Awake()
+    public class GameManager : CustomBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static GameManager Instance { get; private set; }
+        public Action OnBrickDestroyed;
+        public Action OnBrickCreated;
+        public Action OnBallsUp;
+        public Action OnBallsDown;
+        public Action OnHealthUp;
+        public Action OnRestart;
+        [SerializeField] private int points;
+        [SerializeField] private int BricksRemaining;
+        [SerializeField] private int Health;
+        [SerializeField] private int activeBalls;
+        [SerializeField] private PlayerController player;
+        public bool ballOnBoard;
+
+        private void Awake()
         {
-            Destroy(gameObject);
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
-        else
+
+        private void OnEnable()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            OnBrickDestroyed += PointsUp;
+            OnBrickCreated += AddBrick;
+            OnRestart += Restart;
+            OnBallsUp += ActiveBallsUp;
+            OnBallsDown += ActiveBallsDown;
+            OnHealthUp += HealthUp;
         }
-    }
 
-    private void OnEnable()
-    {
-        OnBrickDestroyed += PointsUp;
-        OnBrickCreated += AddBrick;
-        OnRestart += Restart;
-        OnBallsUp += ActiveBallsUp;
-        OnBallsDown += ActiveBallsDown;
-        OnHealthUp += HealthUp;
-    }
-
-    private void OnDisable()
-    {
-        OnBrickDestroyed -= PointsUp;
-        OnBrickCreated -= AddBrick;
-        OnRestart -= Restart;
-        OnBallsUp -= ActiveBallsUp;
-        OnBallsDown -= ActiveBallsDown;
-        OnHealthUp -= HealthUp;
-    }
-
-
-    private void PointsUp()
-    {
-        points++;
-        BricksRemaining--;
-        if (BricksRemaining <= 0)
+        private void OnDisable()
         {
-            Debug.Log("Game Over, ganaste");
+            OnBrickDestroyed -= PointsUp;
+            OnBrickCreated -= AddBrick;
+            OnRestart -= Restart;
+            OnBallsUp -= ActiveBallsUp;
+            OnBallsDown -= ActiveBallsDown;
+            OnHealthUp -= HealthUp;
         }
-    }
 
-    private void AddBrick()
-    {
-        BricksRemaining++;
-    }
 
-    private void Restart()
-    {
-        points = 0;
-        BricksRemaining = 0;
-        Health = 3;
-        activeBalls = 1;
-    }
-
-    private void HealthUp()
-    {
-        Health++;
-    }
-
-    private void HealthDown()
-    {
-        Health--;
-        ActiveBallsUp();
-        player.Parent();
-        ballOnBoard = true;
-        GameOver();
-    }
-
-    public void SetPLayerInstance(PlayerController _player)
-    {
-        player = _player;
-    }
-
-    private void ActiveBallsUp()
-    {
-        activeBalls++;
-    }
-
-    private void ActiveBallsDown()
-    {
-        activeBalls--;
-        if (activeBalls <= 0)
+        private void PointsUp()
         {
-            HealthDown();
+            points++;
+            BricksRemaining--;
+            if (BricksRemaining <= 0)
+            {
+                Debug.Log("Game Over, ganaste");
+            }
         }
-    }
 
-    private void GameOver()
-    {
-        if (Health <= 0) Debug.Log("Game Over, perdiste");
+        private void AddBrick()
+        {
+            BricksRemaining++;
+        }
+
+        private void Restart()
+        {
+            points = 0;
+            BricksRemaining = 0;
+            Health = 3;
+            activeBalls = 1;
+        }
+
+        private void HealthUp()
+        {
+            Health++;
+        }
+
+        private void HealthDown()
+        {
+            Health--;
+            ActiveBallsUp();
+            player.Parent();
+            ballOnBoard = true;
+            GameOver();
+        }
+
+        public void SetPLayerInstance(PlayerController _player)
+        {
+            player = _player;
+        }
+
+        private void ActiveBallsUp()
+        {
+            activeBalls++;
+        }
+
+        private void ActiveBallsDown()
+        {
+            activeBalls--;
+            if (activeBalls <= 0)
+            {
+                HealthDown();
+            }
+        }
+
+        private void GameOver()
+        {
+            if (Health <= 0) Debug.Log("Game Over, perdiste");
+        }
     }
 }

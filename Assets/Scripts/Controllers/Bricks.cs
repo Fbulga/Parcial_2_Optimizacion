@@ -1,11 +1,12 @@
 using Interfaces;
+using Managers;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Controllers
 {
     public class Bricks: CustomBehaviour, IDestructible
     {
-        [SerializeField] private int health = 3;
+        [SerializeField] private int health;
         private bool destroyed = false;
         public void DestroyMe()
         {
