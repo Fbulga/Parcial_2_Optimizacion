@@ -86,6 +86,7 @@ namespace Controllers
         }
         public void LongerBar(bool isBallOn)
         {
+            timer = 0;
             if (isBallOn)
             {
                 ball.transform.SetParent(null);
@@ -132,7 +133,6 @@ namespace Controllers
                 if (timer >= longerBarTime)
                 {
                     isLongerBar = false;
-                    timer = 0f;
                     if (GameManager.Instance.ballOnBoard)
                     {
                         ball.transform.SetParent(null);
