@@ -11,6 +11,7 @@ namespace PowerUps
             GameManager.Instance.SetLongerPLayer();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
             AudioManager.Instance.PlaySound(data.Clip);
+            Debug.Log("LongerBarPowerUp");
         }
     }
 }
