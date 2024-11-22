@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!4 &2699979891115698905
 Transform:
@@ -188,6 +188,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a62005478ab039b498b7eb56da61abac, type: 3}
       propertyPath: m_Name
       value: Gatito
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a62005478ab039b498b7eb56da61abac, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

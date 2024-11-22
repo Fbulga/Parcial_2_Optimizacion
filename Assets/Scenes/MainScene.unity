@@ -241,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatTower_Right
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2e327dc4989344e48b731981a1e132ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1576,6 +1580,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 35934d69e94621e459a80cac0c9e9ee3, type: 3}
       propertyPath: m_Name
       value: CatTower_Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 35934d69e94621e459a80cac0c9e9ee3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 62
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3511,7 +3519,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!23 &1543476837
 MeshRenderer:
@@ -3742,7 +3750,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!23 &1696842892
 MeshRenderer:
@@ -4600,7 +4608,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!64 &2018931826
 MeshCollider:
@@ -5045,7 +5053,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 62
   m_IsActive: 1
 --- !u!23 &2145811205
 MeshRenderer:
