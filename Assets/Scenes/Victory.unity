@@ -770,7 +770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press space to go back to the menu
+  m_text: Press E to go back to the menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eb65c97ff34711c42be12d066f9419d6, type: 2}
   m_sharedMaterial: {fileID: -1370410155144304377, guid: eb65c97ff34711c42be12d066f9419d6, type: 2}

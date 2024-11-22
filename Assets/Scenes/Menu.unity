@@ -1156,7 +1156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PRESS SPACE TO PLAY
+  m_text: PRESS E TO PLAY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eb65c97ff34711c42be12d066f9419d6, type: 2}
   m_sharedMaterial: {fileID: -1370410155144304377, guid: eb65c97ff34711c42be12d066f9419d6, type: 2}
@@ -2562,6 +2562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creditsCanvas: {fileID: 398047532}
+  buttonsCanvas: {fileID: 362034480}
 --- !u!4 &1285004397
 Transform:
   m_ObjectHideFlags: 0
