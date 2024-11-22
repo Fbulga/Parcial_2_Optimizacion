@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3161cfd57334a81909aa1fef8760396, type: 3}
   m_Name: PowerUpData
   m_EditorClassIdentifier: 
-  deadZoneY: -3.9
+  radius: 0
+  clip: {fileID: 8300000, guid: ec1693084abc5a54ba927bd8d73f171f, type: 3}
