@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: HANGPOLE
-    second: {fileID: 2100000, guid: 019428293b4477140b78811476529e11, type: 2}
+    second: {fileID: 2100000, guid: f89676378ca099f4bac33465209985c5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -28,12 +28,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: custion
-    second: {fileID: 2100000, guid: 6a2a3790e64036c4ab3a3b5beea26156, type: 2}
+    second: {fileID: 2100000, guid: f89676378ca099f4bac33465209985c5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: net
-    second: {fileID: 2100000, guid: 5300128e653c17341a6a19ff79d7233e, type: 2}
+    second: {fileID: 2100000, guid: f89676378ca099f4bac33465209985c5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
