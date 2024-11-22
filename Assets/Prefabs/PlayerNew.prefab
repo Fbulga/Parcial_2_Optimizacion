@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bf2565e397095ef44a41d39548fe98ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   acceleration: 200
   detectionRadius: 1.78
   longerBarTime: 5
+  slowerBallTime: 0
 --- !u!114 &44495597252949384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +261,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BallNew
       objectReference: {fileID: 0}
+    - target: {fileID: 7961119090261164679, guid: 84768240db6c81e47b798f15bc2afae1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1edd7ebe7f3c87b4a936ba59c26c8751, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
