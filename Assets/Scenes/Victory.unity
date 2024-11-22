@@ -413,7 +413,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 487706601}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 631455744}
+        m_TargetAssemblyTypeName: UI.GoToMenuButton, Assembly-CSharp
+        m_MethodName: GoToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &487706601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +476,7 @@ GameObject:
   - component: {fileID: 631455743}
   - component: {fileID: 631455742}
   - component: {fileID: 631455741}
+  - component: {fileID: 631455744}
   m_Layer: 5
   m_Name: Canvas buttons
   m_TagString: Untagged
@@ -554,6 +567,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &631455744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631455739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58036f409f4b4952ab17968af70ff32a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &985684310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1471,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: db6bbec0bd1607942a712c0495edd4e3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.33
   m_Pitch: 1
   Loop: 1
   Mute: 0

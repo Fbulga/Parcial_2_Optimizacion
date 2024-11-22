@@ -1,8 +1,9 @@
 using System;
 using Controllers;
 using Scriptables;
-using TMPro;
+using UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -16,6 +17,7 @@ namespace Managers
         public Action OnHealthUp;
         public Action OnRestart;
         private float ballBaseSpeed;
+        private HealthAndPoints ui;
         
         public int points;
         [SerializeField] private int BricksRemaining;
@@ -24,8 +26,7 @@ namespace Managers
         [SerializeField] private PlayerController player;
         [SerializeField] private DeadZone deadZone;
         [SerializeField] private BallData ballData;
-        [SerializeField] private TextMeshProUGUI pointsText;
-        [SerializeField] private TextMeshProUGUI healthText;
+
         
         public bool ballOnBoard;
 
@@ -71,13 +72,13 @@ namespace Managers
             BricksRemaining--;
             if (BricksRemaining <= 0)
             {
-                Debug.Log("Game Over, ganaste");
+                SceneManager.LoadScene(2);
             }
         }
 
         void UpdatePoints()
         {
-                pointsText.text = points.ToString();
+            ui.UpdatePoints(points);
         }
         
         private void AddBrick()
@@ -87,6 +88,10 @@ namespace Managers
         public void StartDeadlyTimer()
         {
             deadZone.RunDeadlyTimer();
+        }
+        public void SetPointsAndHealthUI(HealthAndPoints points)
+        {
+            ui = points;
         }
         public void ChangeBallsMaxSpeed()
         {
@@ -116,7 +121,7 @@ namespace Managers
         {
             ballOnBoard = true;
             Health--;
-            healthText.text = Health.ToString();
+            ui.UpdateHealth(Health);
             ActiveBallsUp();
             player.Parent();
             GameOver();
@@ -151,7 +156,7 @@ namespace Managers
 
         private void GameOver()
         {
-            if (Health <= 0) Debug.Log("Game Over, perdiste");
+            if (Health <= 0) SceneManager.LoadScene(3);;
         }
     }
 }

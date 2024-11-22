@@ -18,5 +18,13 @@ namespace UI
             EditorApplication.isPlaying = false;
 #endif
         }
+        
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GoToGame();
+            }
+        }
     }
 }

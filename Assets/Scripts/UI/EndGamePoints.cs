@@ -1,13 +1,12 @@
-using System;
 using Managers;
 using TMPro;
 using UnityEngine;
 
-public class EndGamePoints : MonoBehaviour
+public class EndGamePoints : CustomBehaviour
 {
     [SerializeField] private TextMeshProUGUI pointsText;
 
-    void Start()
+    protected override void CustomStart()
     {
         pointsText.text = GameManager.Instance.points.ToString();
     }
