@@ -47,6 +47,8 @@ MonoBehaviour:
   points: 0
   BricksRemaining: 0
   Health: 3
-  activeBalls: 0
+  activeBalls: 1
   player: {fileID: 0}
+  deadZone: {fileID: 0}
+  ballData: {fileID: 11400000, guid: d753dbbb9ad204c409d63da3bb8e2a1e, type: 2}
   ballOnBoard: 1
