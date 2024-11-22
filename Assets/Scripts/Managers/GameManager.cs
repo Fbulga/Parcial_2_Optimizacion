@@ -1,5 +1,6 @@
 using System;
 using Controllers;
+using Scriptables;
 using UnityEngine;
 
 namespace Managers
@@ -13,12 +14,16 @@ namespace Managers
         public Action OnBallsDown;
         public Action OnHealthUp;
         public Action OnRestart;
+        private float ballBaseSpeed;
+        
         [SerializeField] private int points;
         [SerializeField] private int BricksRemaining;
         [SerializeField] private int Health;
         [SerializeField] private int activeBalls;
         [SerializeField] private PlayerController player;
         [SerializeField] private DeadZone deadZone;
+        [SerializeField] private BallData ballData;
+        
         public bool ballOnBoard;
 
         private void Awake()
@@ -31,6 +36,7 @@ namespace Managers
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                ballBaseSpeed = ballData.MaxSpeed;
             }
         }
 
@@ -73,6 +79,15 @@ namespace Managers
         {
             deadZone.RunDeadlyTimer();
         }
+        public void ChangeBallsMaxSpeed()
+        {
+            ballData.SetMaxSpeed(ballBaseSpeed * 0.7f);
+            player.ChangeBallSpeed();
+        }
+        public void ResetBallsMaxSpeed()
+        {
+            ballData.SetMaxSpeed(ballBaseSpeed);
+        }
 
         private void Restart()
         {
@@ -80,6 +95,7 @@ namespace Managers
             BricksRemaining = 0;
             Health = 3;
             activeBalls = 1;
+            ballData.SetMaxSpeed(9);
         }
 
         private void HealthUp()

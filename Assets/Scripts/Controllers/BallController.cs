@@ -75,7 +75,7 @@ namespace Controllers
                                 Vector2.Reflect(
                                     new Vector2(customPhysicsNuestro.velocity.x, customPhysicsNuestro.velocity.y), normal);
                         
-                            customPhysicsNuestro.velocity = new Vector3(reflectedVelocity.x, reflectedVelocity.y, 0);
+                            customPhysicsNuestro.velocity = new Vector3(reflectedVelocity.x, reflectedVelocity.y, 0).normalized * data.MaxSpeed;
                         
                             transform.position = response.closestPoint + normal * ((sphereCollider.radius) + 0.025f);
                             if (normal.y != 0) // Colisión vertical

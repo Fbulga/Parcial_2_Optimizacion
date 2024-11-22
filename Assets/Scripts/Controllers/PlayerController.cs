@@ -15,12 +15,15 @@ namespace Controllers
         [SerializeField] private float acceleration;
         [SerializeField] private float detectionRadius;
         [SerializeField] private float longerBarTime;
+        [SerializeField] private float slowerBallTime;
         private float baseDetectionRadius;
     
         private float timer;
+        private float timerBalls;
         private bool isLongerBar;
+        private bool isSlowerBalls = false;
         private bool firstImpulse;
-        private float InputPlayer;
+        private float inputPlayer;
         private Collider[] colliders = new Collider[8];
 
         public Vector3 Velocity => customPhysicsNuestro.velocity;
@@ -33,8 +36,9 @@ namespace Controllers
         }
         protected override void CustomUpdate()
         {
-            InputPlayer = Input.GetAxis("Horizontal");
+            inputPlayer = Input.GetAxis("Horizontal");
             MakeBarNormalAfterTime();
+            MakeBallSpeedNormalAfterTime();
         }
 
         
@@ -57,14 +61,14 @@ namespace Controllers
 
         private void Movement()
         {
-            if (InputPlayer != 0)
+            if (inputPlayer != 0)
             {
                 if (firstImpulse)
                 {
-                    customPhysicsNuestro.ApplyImpulse(new Vector3(InputPlayer,0,0)*(acceleration * 1.5f));
+                    customPhysicsNuestro.ApplyImpulse(new Vector3(inputPlayer,0,0)*(acceleration * 1.5f));
                     firstImpulse = false;
                 }
-                customPhysicsNuestro.ApplyForce(new Vector3(InputPlayer,0,0)*acceleration);
+                customPhysicsNuestro.ApplyForce(new Vector3(inputPlayer,0,0)*acceleration);
             }
             else
             {
@@ -85,6 +89,11 @@ namespace Controllers
             ball.ReUseMe(ballPos.position);
             ball.gameObject.SetActive(true);
             ball.transform.SetParent(transform);
+        }
+        public void ChangeBallSpeed()
+        {
+            isSlowerBalls = true;
+            timerBalls = 0;
         }
         public void LongerBar(bool isBallOn)
         {
@@ -146,6 +155,18 @@ namespace Controllers
                     {
                         transform.localScale = new Vector3(1,1,1);
                     }
+                }
+            }
+        }
+        private void MakeBallSpeedNormalAfterTime()
+        {
+            if (isSlowerBalls)
+            {
+                timerBalls += Time.deltaTime;
+                if (timerBalls >= slowerBallTime)
+                {
+                    isSlowerBalls = false;
+                    GameManager.Instance.ResetBallsMaxSpeed();
                 }
             }
         }

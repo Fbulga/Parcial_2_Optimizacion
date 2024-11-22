@@ -352,6 +352,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 844779587}
     - target: {fileID: 5123237647452099549, guid: b05a9b41866ab42458b39f619c589f7b, type: 3}
+      propertyPath: ballData
+      value: 
+      objectReference: {fileID: 11400000, guid: d753dbbb9ad204c409d63da3bb8e2a1e, type: 2}
+    - target: {fileID: 5123237647452099549, guid: b05a9b41866ab42458b39f619c589f7b, type: 3}
       propertyPath: activeBalls
       value: 1
       objectReference: {fileID: 0}
@@ -8791,7 +8795,8 @@ MonoBehaviour:
   - {fileID: 3803376101722210547, guid: 8ec6978d019fdfa43a0bb669d6d53fb8, type: 3}
   - {fileID: 3803376101722210547, guid: 503fa6303e03f67428ecf7dfe16c2fdc, type: 3}
   - {fileID: 3803376101722210547, guid: 5d1595bafc5522e4c9f23528282ec995, type: 3}
-  powerUpTypes: 00000000010000000300000002000000
+  - {fileID: 3803376101722210547, guid: 751b4a7a3388de0419fe09ab604a0c7c, type: 3}
+  powerUpTypes: 0000000001000000030000000200000004000000
   physicsEngine: {fileID: 528125686}
   powerUpChance: 0.175
 --- !u!4 &1938472733
@@ -10308,6 +10313,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4208441510713429928, guid: fe98e18b7382a554485bda139e022331, type: 3}
+      propertyPath: slowerBallTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4651945289060255598, guid: fe98e18b7382a554485bda139e022331, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.38

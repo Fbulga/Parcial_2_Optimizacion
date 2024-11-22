@@ -10,7 +10,12 @@ namespace Scriptables
         [SerializeField] private float maxSpeed;
         
         public float Radius => radius;
-        public float PlayerInfluenceFactor  => playerInfluenceFactor;
+        public float PlayerInfluenceFactor => playerInfluenceFactor;
         public float MaxSpeed  => maxSpeed;
+
+        public void SetMaxSpeed(float _maxSpeed)
+        {
+            maxSpeed = _maxSpeed;
+        }
     }
 }

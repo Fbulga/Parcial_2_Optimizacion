@@ -5,6 +5,7 @@ namespace Enums
         MoreBalls,
         ExtraLife,
         NoDeath,
-        LongerBar
+        LongerBar,
+        SlowerBalls
     }
 }
