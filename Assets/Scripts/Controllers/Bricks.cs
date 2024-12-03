@@ -10,6 +10,7 @@ namespace Controllers
         [SerializeField] private int health;
         [SerializeField] private BrickData data;
         private bool destroyed = false;
+        [SerializeField] private GameObject[] angryOtaku;
         public void DestroyMe()
         {
             if (destroyed) return;
