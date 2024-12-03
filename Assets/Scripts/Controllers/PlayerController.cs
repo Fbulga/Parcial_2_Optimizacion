@@ -62,7 +62,7 @@ namespace Controllers
             {
                 if (firstImpulse)
                 {
-                    customPhysicsNuestro.ApplyImpulse(new Vector3(inputPlayer,0,0)*(acceleration * 1.5f));
+                    customPhysicsNuestro.ApplyImpulse(new Vector3(inputPlayer,0,0)*(acceleration * 2f));
                     firstImpulse = false;
                 }
                 customPhysicsNuestro.ApplyForce(new Vector3(inputPlayer,0,0)*acceleration);
@@ -70,6 +70,11 @@ namespace Controllers
             else
             {
                 firstImpulse = true;
+            }
+            
+            if (Mathf.Abs(inputPlayer) <= 0.25f)
+            {
+                customPhysicsNuestro.velocity *= 0.75f;
             }
             customPhysicsNuestro.ApplyFriction();
         }
