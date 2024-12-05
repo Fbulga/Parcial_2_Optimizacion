@@ -26,6 +26,7 @@ namespace Managers
         [SerializeField] private PlayerController player;
         [SerializeField] private DeadZone deadZone;
         [SerializeField] private BallData ballData;
+        private bool isSecondLevel = false;
 
         
         public bool ballOnBoard;
@@ -72,7 +73,13 @@ namespace Managers
             BricksRemaining--;
             if (BricksRemaining <= 0)
             {
-                SceneManager.LoadScene(2);
+                if (isSecondLevel) SceneManager.LoadScene(2);
+                else
+                {
+                    SceneManager.LoadScene(4);
+                    Restart();
+                    isSecondLevel = true;
+                }
             }
         }
 
@@ -108,9 +115,10 @@ namespace Managers
             ballOnBoard = true;
             points = 0;
             BricksRemaining = 0;
-            Health = 3;
+            Health = 300;
             activeBalls = 1;
             ballData.SetMaxSpeed(9);
+            isSecondLevel = false;
         }
 
         private void HealthUp()
