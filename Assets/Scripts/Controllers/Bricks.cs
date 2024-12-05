@@ -25,6 +25,15 @@ namespace Controllers
         public void TryDestroyMe()
         {
             health--;
+            switch (health)
+            {
+                case 2:
+                    angryOtaku[0].SetActive(true);
+                    break;
+                case 1:
+                    angryOtaku[1].SetActive(true);
+                    break;
+            }
             if (health <= 0)
             {
                 DestroyMe();
