@@ -18,7 +18,8 @@ namespace Controllers
             GameManager.Instance.OnBrickDestroyed?.Invoke();
             destroyed = true;
             AudioManager.Instance.PlaySound(data.Clip);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Destroy(gameObject);
         }
 
         public void TryDestroyMe()

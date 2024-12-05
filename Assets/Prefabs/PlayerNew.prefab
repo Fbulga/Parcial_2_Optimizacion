@@ -171,7 +171,7 @@ MonoBehaviour:
   acceleration: 200
   detectionRadius: 1.78
   longerBarTime: 5
-  slowerBallTime: 0
+  slowerBallTime: 5
 --- !u!114 &44495597252949384
 MonoBehaviour:
   m_ObjectHideFlags: 0

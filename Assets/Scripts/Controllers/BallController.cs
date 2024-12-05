@@ -8,7 +8,7 @@ namespace Controllers
 {
     public class BallController : CustomBehaviour, IPhysics
     {
-        private Collider[] colliders = new Collider[10];
+        private Collider[] colliders = new Collider[5];
     
         [SerializeField] private BallData data;
         [SerializeField] private CustomPhysicsNuestro customPhysicsNuestro;
