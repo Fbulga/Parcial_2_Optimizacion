@@ -3909,7 +3909,7 @@ PrefabInstance:
       objectReference: {fileID: 528125686}
     - target: {fileID: 8530753192843274343, guid: 59cd777832b63fa49a0b093e1345752c, type: 3}
       propertyPath: powerUpChance
-      value: 0.2
+      value: 0.32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5095,6 +5095,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4208441510713429928, guid: fe98e18b7382a554485bda139e022331, type: 3}
+      propertyPath: acceleration
+      value: 225
+      objectReference: {fileID: 0}
     - target: {fileID: 4651945289060255598, guid: fe98e18b7382a554485bda139e022331, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.38

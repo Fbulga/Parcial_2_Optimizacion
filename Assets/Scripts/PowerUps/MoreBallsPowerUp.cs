@@ -16,7 +16,6 @@ namespace PowerUps
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
             AudioManager.Instance.PlaySound(data.Clip);
             PowerUpsUIHelper.OnPowerUpChanged?.Invoke(type,false);
-            Debug.Log("MoreBallsPowerUp");
         }
     }
 }

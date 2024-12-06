@@ -73,14 +73,24 @@ namespace Managers
             BricksRemaining--;
             if (BricksRemaining <= 0)
             {
-                if (isSecondLevel) SceneManager.LoadScene(2);
+                if (isSecondLevel)
+                {
+                    SceneManager.LoadScene(2);
+                }
                 else
                 {
                     SceneManager.LoadScene(4);
-                    Restart();
-                    isSecondLevel = true;
+                    ChangeLevel();
                 }
             }
+        }
+
+        private void ChangeLevel()
+        {
+            var cachedPoints = points;
+            Restart();
+            points = cachedPoints;
+            isSecondLevel = true;
         }
 
         void UpdatePoints()
@@ -96,9 +106,11 @@ namespace Managers
         {
             deadZone.RunDeadlyTimer();
         }
-        public void SetPointsAndHealthUI(HealthAndPoints points)
+        public void SetPointsAndHealthUI(HealthAndPoints pointsAndHealth)
         {
-            ui = points;
+            ui = pointsAndHealth;
+            ui.UpdateHealth(Health);
+            ui.UpdatePoints(points);
         }
         public void ChangeBallsMaxSpeed()
         {
@@ -115,7 +127,7 @@ namespace Managers
             ballOnBoard = true;
             points = 0;
             BricksRemaining = 0;
-            Health = 300;
+            Health = 5;
             activeBalls = 1;
             ballData.SetMaxSpeed(9);
             isSecondLevel = false;

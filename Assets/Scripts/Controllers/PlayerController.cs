@@ -62,7 +62,7 @@ namespace Controllers
             {
                 if (firstImpulse)
                 {
-                    customPhysicsNuestro.ApplyImpulse(new Vector3(inputPlayer,0,0)*(acceleration * 2f));
+                    customPhysicsNuestro.ApplyImpulse(new Vector3(inputPlayer,0,0)*(acceleration * 1.75f));
                     firstImpulse = false;
                 }
                 customPhysicsNuestro.ApplyForce(new Vector3(inputPlayer,0,0)*acceleration);
