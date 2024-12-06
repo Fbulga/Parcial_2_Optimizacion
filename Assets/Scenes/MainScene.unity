@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 626210935}
-  cooldownTime: 10
+  cooldownTime: 5
 --- !u!1001 &217451993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 835313068}
-  cooldownTime: 10
+  cooldownTime: 5
 --- !u!1 &500600852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,7 +2461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aeee4394cd4484a97bcc253ee09a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
 --- !u!1001 &638650920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2550,6 +2549,7 @@ GameObject:
   - component: {fileID: 652467416}
   - component: {fileID: 652467418}
   - component: {fileID: 652467417}
+  - component: {fileID: 652467419}
   m_Layer: 5
   m_Name: Canvas PowerUps
   m_TagString: Untagged
@@ -2630,6 +2630,29 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &652467419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652467415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6eb619c2d674a48823f54b7457f9f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpTypes: 0200000003000000040000000000000001000000
+  powerUpTexts:
+  - {fileID: 632159710}
+  - {fileID: 1800042150}
+  - {fileID: 919693910}
+  - {fileID: 806028276}
+  - {fileID: 1660444583}
+  powerUpTimers:
+  - {fileID: 476116652}
+  - {fileID: 184614244}
+  - {fileID: 1279369288}
 --- !u!1 &666750603
 GameObject:
   m_ObjectHideFlags: 0
@@ -3321,7 +3344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aeee4394cd4484a97bcc253ee09a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
 --- !u!1 &835313066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3857,7 +3879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aeee4394cd4484a97bcc253ee09a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
 --- !u!1 &923324808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4839,7 +4860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fill: {fileID: 268948379}
-  cooldownTime: 10
+  cooldownTime: 5
 --- !u!1 &1295683467
 GameObject:
   m_ObjectHideFlags: 0
@@ -5487,7 +5508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aeee4394cd4484a97bcc253ee09a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
 --- !u!1 &1696842891
 GameObject:
   m_ObjectHideFlags: 0
@@ -5945,7 +5965,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1aeee4394cd4484a97bcc253ee09a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 1
 --- !u!1 &1876719806
 GameObject:
   m_ObjectHideFlags: 0

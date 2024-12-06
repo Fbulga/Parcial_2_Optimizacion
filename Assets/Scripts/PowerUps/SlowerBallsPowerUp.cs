@@ -1,5 +1,6 @@
 using Controllers;
 using Managers;
+using UI;
 using UnityEngine;
 
 namespace PowerUps
@@ -11,6 +12,7 @@ namespace PowerUps
             GameManager.Instance.ChangeBallsMaxSpeed();
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
             AudioManager.Instance.PlaySound(data.Clip);
+            PowerUpsUIHelper.OnPowerUpChanged?.Invoke(type,true);
             Debug.Log("SlowerBallsPowerUp");
         }
     }

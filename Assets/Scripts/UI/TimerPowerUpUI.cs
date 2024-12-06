@@ -1,3 +1,5 @@
+using System;
+using Enums;
 using UnityEngine;
 using UnityEngine.UI;
 namespace UI
@@ -7,15 +9,13 @@ namespace UI
         private float time;
         [SerializeField] private Image fill;
         [SerializeField] private float cooldownTime;
-
         private void OnEnable()
         {
-            // gameObject.SetActive(true);
             time = cooldownTime;
             fill.fillAmount = 0;
         }
 
-        void Update()
+        private void Update()
         {
             TimerPowerUp();
         }

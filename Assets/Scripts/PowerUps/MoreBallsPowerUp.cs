@@ -1,5 +1,6 @@
 using Controllers;
 using Managers;
+using UI;
 using UnityEngine;
 
 namespace PowerUps
@@ -14,6 +15,7 @@ namespace PowerUps
             ball.ImpulseMe(-0.5f);
             PowerUpPool.Instance.ReturnPowerUp(gameObject, type);
             AudioManager.Instance.PlaySound(data.Clip);
+            PowerUpsUIHelper.OnPowerUpChanged?.Invoke(type,false);
             Debug.Log("MoreBallsPowerUp");
         }
     }

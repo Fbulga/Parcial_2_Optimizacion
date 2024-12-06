@@ -124,6 +124,7 @@ namespace Managers
         private void HealthUp()
         {
             Health++;
+            ui.UpdateHealth(Health);
         }
 
         private void HealthDown()

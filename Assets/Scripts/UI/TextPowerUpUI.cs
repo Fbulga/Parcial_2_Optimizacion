@@ -6,11 +6,9 @@ namespace UI
     public class TextPowerUpUI : MonoBehaviour
     {
         private float time;
-        [SerializeField] private float cooldownTime;
         private void OnEnable()
         {
-            time = cooldownTime;
-            // gameObject.SetActive(true);
+            time = 1;
         }
         void Update()
         {
