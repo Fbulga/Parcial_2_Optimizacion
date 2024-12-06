@@ -1,5 +1,6 @@
 using System;
 using Enums;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 namespace UI
@@ -13,9 +14,13 @@ namespace UI
         {
             time = cooldownTime;
             fill.fillAmount = 0;
+            CustomUpdateManager.Instance.OnUpdate += CustomUpdate;
         }
-
-        private void Update()
+        private void OnDisable()
+        {
+            CustomUpdateManager.Instance.OnUpdate -= CustomUpdate;
+        }
+        private void CustomUpdate()
         {
             TimerPowerUp();
         }

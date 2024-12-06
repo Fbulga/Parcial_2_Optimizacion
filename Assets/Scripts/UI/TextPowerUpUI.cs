@@ -1,3 +1,4 @@
+using Managers;
 using TMPro;
 using UnityEngine;
 
@@ -9,10 +10,15 @@ namespace UI
         private void OnEnable()
         {
             time = 1;
+            CustomUpdateManager.Instance.OnUpdate += CustomUpdate;
         }
-        void Update()
+        void CustomUpdate()
         {
             TimerPowerUp();
+        }
+        private void OnDisable()
+        {
+            CustomUpdateManager.Instance.OnUpdate -= CustomUpdate;
         }
         void TimerPowerUp()
         {
